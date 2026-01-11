@@ -26,33 +26,22 @@
             --gray-700: #374151;
             --gray-800: #1f2937;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             min-height: 100vh;
             color: var(--gray-800);
         }
-
-        /* Header */
         .header {
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             padding: 1rem 1.5rem;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
         .header-content {
             max-width: 500px;
             margin: 0 auto;
@@ -60,7 +49,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .logo {
             display: flex;
             align-items: center;
@@ -69,12 +57,7 @@
             font-size: 1.1rem;
             color: var(--primary);
         }
-
-        .logo i {
-            font-size: 1.4rem;
-            color: var(--accent);
-        }
-
+        .logo i { font-size: 1.4rem; color: var(--accent); }
         .user-info {
             display: flex;
             align-items: center;
@@ -82,10 +65,8 @@
             font-size: 0.85rem;
             color: var(--gray-600);
         }
-
         .user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
             border-radius: 50%;
             display: flex;
@@ -95,7 +76,6 @@
             font-weight: 600;
             font-size: 0.8rem;
         }
-
         .logout-btn {
             background: none;
             border: none;
@@ -104,38 +84,24 @@
             padding: 0.25rem;
             font-size: 1rem;
         }
-
-        /* Container */
         .container {
             max-width: 500px;
             margin: 0 auto;
             padding: 70px 1rem 100px;
             min-height: 100vh;
         }
-
-        /* Screen */
-        .screen {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
+        .screen { display: none; animation: fadeIn 0.3s ease; }
+        .screen.active { display: block; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Login Screen */
         .login-wrapper {
             min-height: calc(100vh - 100px);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-
         .login-box {
             background: white;
             border-radius: 20px;
@@ -143,15 +109,12 @@
             width: 100%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
-
         .login-header {
             text-align: center;
             margin-bottom: 2rem;
         }
-
         .login-header .icon {
-            width: 70px;
-            height: 70px;
+            width: 70px; height: 70px;
             background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
             border-radius: 50%;
             display: flex;
@@ -161,23 +124,9 @@
             font-size: 2rem;
             color: white;
         }
-
-        .login-header h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .login-header p {
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 1.25rem;
-        }
-
+        .login-header h1 { font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .login-header p { color: var(--gray-500); font-size: 0.9rem; }
+        .form-group { margin-bottom: 1.25rem; }
         .form-group label {
             display: block;
             font-size: 0.85rem;
@@ -185,7 +134,6 @@
             color: var(--gray-700);
             margin-bottom: 0.5rem;
         }
-
         .form-group select,
         .form-group input,
         .form-group textarea {
@@ -198,7 +146,6 @@
             transition: all 0.2s;
             background: var(--gray-50);
         }
-
         .form-group select:focus,
         .form-group input:focus,
         .form-group textarea:focus {
@@ -207,8 +154,6 @@
             background: white;
             box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
-
-        /* Buttons */
         .btn {
             width: 100%;
             padding: 1rem;
@@ -220,29 +165,24 @@
             transition: all 0.2s;
             font-family: inherit;
         }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
             color: white;
         }
-
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
         }
-
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
         .btn-success {
             background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
             color: white;
         }
-
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            width: auto;
-        }
-
-        /* Cards */
+        .btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; }
         .card {
             background: white;
             border-radius: 16px;
@@ -250,14 +190,12 @@
             margin-bottom: 1rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
         }
-
         .card-title {
             font-size: 1.1rem;
             font-weight: 700;
@@ -266,19 +204,13 @@
             align-items: center;
             gap: 0.5rem;
         }
-
-        .card-title i {
-            color: var(--accent);
-        }
-
-        /* Stats Grid */
+        .card-title i { color: var(--accent); }
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 0.75rem;
             margin-bottom: 1rem;
         }
-
         .stat-card {
             background: linear-gradient(135deg, var(--gray-50) 0%, white 100%);
             border: 1px solid var(--gray-200);
@@ -286,56 +218,25 @@
             padding: 1rem;
             text-align: center;
         }
-
-        .stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
+        .stat-value { font-size: 1.75rem; font-weight: 700; color: var(--primary); }
         .stat-value.success { color: var(--success); }
         .stat-value.warning { color: var(--warning); }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-            margin-top: 0.25rem;
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            margin: 1rem 0;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        .progress-bar {
-            height: 10px;
-            background: var(--gray-200);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
+        .stat-label { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.25rem; }
+        .progress-container { margin: 1rem 0; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; }
+        .progress-bar { height: 10px; background: var(--gray-200); border-radius: 10px; overflow: hidden; }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--accent) 0%, var(--success) 100%);
             border-radius: 10px;
             transition: width 0.5s ease;
         }
-
-        /* Menu Grid */
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-top: 1rem;
         }
-
         .menu-item {
             background: white;
             border-radius: 16px;
@@ -346,16 +247,13 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.08);
             border: 2px solid transparent;
         }
-
         .menu-item:hover {
             transform: translateY(-3px);
             border-color: var(--accent);
             box-shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
         }
-
         .menu-item .icon {
-            width: 50px;
-            height: 50px;
+            width: 50px; height: 50px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -363,42 +261,26 @@
             margin: 0 auto 0.75rem;
             font-size: 1.5rem;
         }
-
         .menu-item .icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--accent); }
         .menu-item .icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .menu-item .icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
         .menu-item .icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
-
-        .menu-item h3 {
-            font-size: 0.95rem;
-            color: var(--gray-800);
-            margin-bottom: 0.25rem;
-        }
-
-        .menu-item p {
-            font-size: 0.75rem;
-            color: var(--gray-500);
-        }
-
-        /* Bottom Navigation */
+        .menu-item h3 { font-size: 0.95rem; color: var(--gray-800); margin-bottom: 0.25rem; }
+        .menu-item p { font-size: 0.75rem; color: var(--gray-500); }
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: white;
             padding: 0.5rem 1rem;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
             z-index: 100;
         }
-
         .bottom-nav-content {
             max-width: 500px;
             margin: 0 auto;
             display: flex;
             justify-content: space-around;
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -409,22 +291,9 @@
             transition: all 0.2s;
             border-radius: 12px;
         }
-
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        .nav-item i {
-            font-size: 1.25rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .nav-item span {
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-        /* Subject List */
+        .nav-item.active { color: var(--accent); }
+        .nav-item i { font-size: 1.25rem; margin-bottom: 0.25rem; }
+        .nav-item span { font-size: 0.7rem; font-weight: 500; }
         .subject-item {
             background: var(--gray-50);
             border: 1px solid var(--gray-200);
@@ -435,31 +304,19 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        .subject-info h4 {
-            font-size: 0.95rem;
-            color: var(--gray-800);
-        }
-
-        .subject-info p {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
+        .subject-info h4 { font-size: 0.95rem; color: var(--gray-800); }
+        .subject-info p { font-size: 0.8rem; color: var(--gray-500); }
         .subject-badge {
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
         }
-
         .badge-korean { background: #fef3c7; color: #d97706; }
         .badge-math { background: #dbeafe; color: #2563eb; }
         .badge-english { background: #dcfce7; color: #16a34a; }
         .badge-science { background: #f3e8ff; color: #9333ea; }
         .badge-social { background: #fce7f3; color: #db2777; }
-
-        /* Plan Item */
         .plan-item {
             background: white;
             border: 2px solid var(--gray-200);
@@ -468,45 +325,18 @@
             margin-bottom: 0.75rem;
             transition: all 0.2s;
         }
-
-        .plan-item.completed {
-            border-color: var(--success);
-            background: rgba(16, 185, 129, 0.05);
-        }
-
-        .plan-item.failed {
-            border-color: var(--danger);
-            background: rgba(239, 68, 68, 0.05);
-        }
-
+        .plan-item.completed, .plan-item.O { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .plan-item.failed, .plan-item.X { border-color: var(--danger); background: rgba(239, 68, 68, 0.05); }
         .plan-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 0.75rem;
         }
-
-        .plan-title {
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-
-        .plan-subtitle {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
-        .plan-time {
-            font-size: 0.8rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        .plan-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
+        .plan-title { font-weight: 600; color: var(--gray-800); }
+        .plan-subtitle { font-size: 0.8rem; color: var(--gray-500); }
+        .plan-time { font-size: 0.8rem; color: var(--accent); font-weight: 600; }
+        .plan-actions { display: flex; gap: 0.5rem; }
         .plan-btn {
             flex: 1;
             padding: 0.625rem;
@@ -517,18 +347,8 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
-        .plan-btn.complete {
-            background: var(--success);
-            color: white;
-        }
-
-        .plan-btn.fail {
-            background: var(--gray-200);
-            color: var(--gray-600);
-        }
-
-        /* Date Navigation */
+        .plan-btn.complete { background: var(--success); color: white; }
+        .plan-btn.fail { background: var(--gray-200); color: var(--gray-600); }
         .date-nav {
             display: flex;
             align-items: center;
@@ -539,10 +359,8 @@
             border-radius: 12px;
             margin-bottom: 1rem;
         }
-
         .date-nav button {
-            width: 36px;
-            height: 36px;
+            width: 36px; height: 36px;
             border: none;
             background: var(--gray-100);
             border-radius: 50%;
@@ -553,12 +371,7 @@
             color: var(--gray-600);
             transition: all 0.2s;
         }
-
-        .date-nav button:hover {
-            background: var(--accent);
-            color: white;
-        }
-
+        .date-nav button:hover { background: var(--accent); color: white; }
         .date-display {
             font-size: 1.1rem;
             font-weight: 600;
@@ -566,8 +379,6 @@
             min-width: 150px;
             text-align: center;
         }
-
-        /* Week View */
         .week-view {
             display: flex;
             gap: 0.5rem;
@@ -577,7 +388,6 @@
             margin-bottom: 1rem;
             overflow-x: auto;
         }
-
         .day-item {
             flex: 1;
             min-width: 45px;
@@ -587,44 +397,21 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-
-        .day-item.active {
-            background: var(--accent);
-            color: white;
-        }
-
+        .day-item.active { background: var(--accent); color: white; }
         .day-item.has-plan::after {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 6px; height: 6px;
             background: var(--success);
             border-radius: 50%;
             display: block;
             margin: 4px auto 0;
         }
-
-        .day-item .day-name {
-            font-size: 0.7rem;
-            color: var(--gray-500);
-        }
-
-        .day-item.active .day-name {
-            color: rgba(255,255,255,0.8);
-        }
-
-        .day-item .day-num {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-top: 0.25rem;
-        }
-
-        /* Modal */
+        .day-item .day-name { font-size: 0.7rem; color: var(--gray-500); }
+        .day-item.active .day-name { color: rgba(255,255,255,0.8); }
+        .day-item .day-num { font-size: 1rem; font-weight: 600; margin-top: 0.25rem; }
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.5);
             display: none;
             align-items: center;
@@ -632,11 +419,7 @@
             z-index: 200;
             padding: 1rem;
         }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
+        .modal-overlay.active { display: flex; }
         .modal {
             background: white;
             border-radius: 20px;
@@ -647,28 +430,19 @@
             overflow-y: auto;
             animation: modalIn 0.3s ease;
         }
-
         @keyframes modalIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.5rem;
         }
-
-        .modal-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
+        .modal-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); }
         .modal-close {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border: none;
             background: var(--gray-100);
             border-radius: 50%;
@@ -678,18 +452,8 @@
             justify-content: center;
             color: var(--gray-500);
         }
-
-        /* Record Form */
-        .record-form .input-row {
-            display: flex;
-            gap: 0.75rem;
-        }
-
-        .record-form .input-row .form-group {
-            flex: 1;
-        }
-
-        /* Ranking */
+        .record-form .input-row { display: flex; gap: 0.75rem; }
+        .record-form .input-row .form-group { flex: 1; }
         .ranking-item {
             display: flex;
             align-items: center;
@@ -698,22 +462,11 @@
             border-radius: 12px;
             margin-bottom: 0.5rem;
         }
-
-        .ranking-item.top-1 {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-        }
-
-        .ranking-item.top-2 {
-            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
-        }
-
-        .ranking-item.top-3 {
-            background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%);
-        }
-
+        .ranking-item.top-1 { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+        .ranking-item.top-2 { background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); }
+        .ranking-item.top-3 { background: linear-gradient(135deg, #fed7aa 0%, #fdba74 100%); }
         .ranking-num {
-            width: 32px;
-            height: 32px;
+            width: 32px; height: 32px;
             border-radius: 50%;
             background: white;
             display: flex;
@@ -723,32 +476,13 @@
             font-size: 0.9rem;
             margin-right: 1rem;
         }
-
         .top-1 .ranking-num { background: #f59e0b; color: white; }
         .top-2 .ranking-num { background: #9ca3af; color: white; }
         .top-3 .ranking-num { background: #f97316; color: white; }
-
-        .ranking-info {
-            flex: 1;
-        }
-
-        .ranking-name {
-            font-weight: 600;
-            color: var(--gray-800);
-        }
-
-        .ranking-detail {
-            font-size: 0.8rem;
-            color: var(--gray-500);
-        }
-
-        .ranking-score {
-            font-weight: 700;
-            color: var(--accent);
-            font-size: 1.1rem;
-        }
-
-        /* Toast */
+        .ranking-info { flex: 1; }
+        .ranking-name { font-weight: 600; color: var(--gray-800); }
+        .ranking-detail { font-size: 0.8rem; color: var(--gray-500); }
+        .ranking-score { font-weight: 700; color: var(--accent); font-size: 1.1rem; }
         .toast {
             position: fixed;
             bottom: 100px;
@@ -762,62 +496,40 @@
             z-index: 300;
             display: none;
         }
-
-        .toast.show {
-            display: block;
-            animation: toastIn 0.3s ease;
-        }
-
+        .toast.show { display: block; animation: toastIn 0.3s ease; }
         @keyframes toastIn {
             from { opacity: 0; transform: translateX(-50%) translateY(20px); }
             to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
-
-        /* Empty State */
         .empty-state {
             text-align: center;
             padding: 3rem 1rem;
             color: var(--gray-500);
         }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header" id="mainHeader" style="display: none;">
         <div class="header-content">
-            <div class="logo">
-                <i class="fas fa-book-open"></i>
-                <span>김엄마독서실</span>
-            </div>
+            <div class="logo"><i class="fas fa-book-open"></i><span>김엄마독서실</span></div>
             <div class="user-info">
                 <span id="headerUserName">김연서</span>
                 <div class="user-avatar" id="headerAvatar">김</div>
-                <button class="logout-btn" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i>
-                </button>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <!-- 로그인 화면 -->
         <div class="screen active" id="loginScreen">
             <div class="login-wrapper">
                 <div class="login-box">
                     <div class="login-header">
-                        <div class="icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
+                        <div class="icon"><i class="fas fa-calendar-check"></i></div>
                         <h1>일일플래너</h1>
                         <p>김엄마독서실 학습 관리 시스템</p>
                     </div>
-
                     <div class="form-group">
                         <label>층 선택</label>
                         <select id="loginFloor">
@@ -826,100 +538,50 @@
                             <option value="8층">8층</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>이름</label>
-                        <select id="loginName">
-                            <option value="">층을 먼저 선택해주세요</option>
-                        </select>
+                        <select id="loginName"><option value="">층을 먼저 선택해주세요</option></select>
                     </div>
-
-                    <button class="btn btn-primary" onclick="login()">
-                        <i class="fas fa-sign-in-alt"></i> 시작하기
-                    </button>
+                    <button class="btn btn-primary" id="loginBtn" onclick="login()"><i class="fas fa-sign-in-alt"></i> 시작하기</button>
                 </div>
             </div>
         </div>
 
-        <!-- 메인 화면 -->
         <div class="screen" id="homeScreen">
             <div class="card">
                 <div class="card-header">
-                    <div class="card-title">
-                        <i class="fas fa-chart-pie"></i>
-                        오늘의 학습 현황
-                    </div>
+                    <div class="card-title"><i class="fas fa-chart-pie"></i> 오늘의 학습 현황</div>
                     <span id="todayDate" style="font-size: 0.85rem; color: var(--gray-500);"></span>
                 </div>
-
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value" id="statPlan">0</div>
-                        <div class="stat-label">오늘 계획</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value success" id="statComplete">0</div>
-                        <div class="stat-label">완료</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="statTime">0h</div>
-                        <div class="stat-label">공부시간</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value warning" id="statPoint">0</div>
-                        <div class="stat-label">상점</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-value" id="statPlan">0</div><div class="stat-label">오늘 계획</div></div>
+                    <div class="stat-card"><div class="stat-value success" id="statComplete">0</div><div class="stat-label">완료</div></div>
+                    <div class="stat-card"><div class="stat-value" id="statTime">0h</div><div class="stat-label">공부시간</div></div>
+                    <div class="stat-card"><div class="stat-value warning" id="statPoint">0</div><div class="stat-label">상점</div></div>
                 </div>
-
                 <div class="progress-container">
-                    <div class="progress-header">
-                        <span>실천율</span>
-                        <span id="progressPercent">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                    </div>
+                    <div class="progress-header"><span>실천율</span><span id="progressPercent">0%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width: 0%"></div></div>
                 </div>
             </div>
-
             <div class="menu-grid">
-                <div class="menu-item" onclick="showScreen('bookScreen')">
-                    <div class="icon blue"><i class="fas fa-book"></i></div>
-                    <h3>교재 관리</h3>
-                    <p>과목별 교재 등록</p>
-                </div>
-                <div class="menu-item" onclick="showScreen('planScreen')">
-                    <div class="icon green"><i class="fas fa-calendar-plus"></i></div>
-                    <h3>주간 계획</h3>
-                    <p>STEP 1 계획 수립</p>
-                </div>
-                <div class="menu-item" onclick="showScreen('recordScreen')">
-                    <div class="icon orange"><i class="fas fa-check-double"></i></div>
-                    <h3>실천 기록</h3>
-                    <p>STEP 2 실천 체크</p>
-                </div>
-                <div class="menu-item" onclick="showScreen('statsScreen')">
-                    <div class="icon purple"><i class="fas fa-trophy"></i></div>
-                    <h3>통계/랭킹</h3>
-                    <p>공부시간 랭킹</p>
-                </div>
+                <div class="menu-item" onclick="showScreen('bookScreen')"><div class="icon blue"><i class="fas fa-book"></i></div><h3>교재 관리</h3><p>과목별 교재 등록</p></div>
+                <div class="menu-item" onclick="showScreen('planScreen')"><div class="icon green"><i class="fas fa-calendar-plus"></i></div><h3>주간 계획</h3><p>STEP 1 계획 수립</p></div>
+                <div class="menu-item" onclick="showScreen('recordScreen')"><div class="icon orange"><i class="fas fa-check-double"></i></div><h3>실천 기록</h3><p>STEP 2 실천 체크</p></div>
+                <div class="menu-item" onclick="showScreen('statsScreen')"><div class="icon purple"><i class="fas fa-trophy"></i></div><h3>통계/랭킹</h3><p>공부시간 랭킹</p></div>
             </div>
         </div>
 
-        <!-- 교재 관리 화면 -->
         <div class="screen" id="bookScreen">
             <div class="card">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-book"></i> 내 교재 목록</div>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('addBookModal')">
-                        <i class="fas fa-plus"></i> 추가
-                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addBookModal')"><i class="fas fa-plus"></i> 추가</button>
                 </div>
                 <div id="bookList"></div>
             </div>
         </div>
 
-        <!-- 주간 계획 화면 -->
         <div class="screen" id="planScreen">
             <div class="date-nav">
                 <button onclick="changeWeek(-1)"><i class="fas fa-chevron-left"></i></button>
@@ -930,15 +592,12 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title"><i class="fas fa-calendar-day"></i> <span id="selectedDateTitle">1월 13일</span></div>
-                    <button class="btn btn-primary btn-sm" onclick="openModal('addPlanModal')">
-                        <i class="fas fa-plus"></i> 추가
-                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="openModal('addPlanModal')"><i class="fas fa-plus"></i> 추가</button>
                 </div>
                 <div id="planList"></div>
             </div>
         </div>
 
-        <!-- 실천 기록 화면 -->
         <div class="screen" id="recordScreen">
             <div class="date-nav">
                 <button onclick="changeRecordDate(-1)"><i class="fas fa-chevron-left"></i></button>
@@ -946,75 +605,41 @@
                 <button onclick="changeRecordDate(1)"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title"><i class="fas fa-check-double"></i> 오늘의 실천</div>
-                </div>
+                <div class="card-header"><div class="card-title"><i class="fas fa-check-double"></i> 오늘의 실천</div></div>
                 <div id="recordList"></div>
             </div>
         </div>
 
-        <!-- 통계/랭킹 화면 -->
         <div class="screen" id="statsScreen">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title"><i class="fas fa-chart-bar"></i> 내 학습 통계</div>
-                </div>
+                <div class="card-header"><div class="card-title"><i class="fas fa-chart-bar"></i> 내 학습 통계</div></div>
                 <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value" id="myTotalPlan">0</div>
-                        <div class="stat-label">총 계획</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value success" id="myTotalComplete">0</div>
-                        <div class="stat-label">총 완료</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="myTotalTime">0h</div>
-                        <div class="stat-label">총 공부시간</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value warning" id="myTotalPoint">0</div>
-                        <div class="stat-label">총 상점</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-value" id="myTotalPlan">0</div><div class="stat-label">총 계획</div></div>
+                    <div class="stat-card"><div class="stat-value success" id="myTotalComplete">0</div><div class="stat-label">총 완료</div></div>
+                    <div class="stat-card"><div class="stat-value" id="myTotalTime">0h</div><div class="stat-label">총 공부시간</div></div>
+                    <div class="stat-card"><div class="stat-value warning" id="myTotalPoint">0</div><div class="stat-label">총 상점</div></div>
                 </div>
                 <div class="progress-container">
-                    <div class="progress-header">
-                        <span>전체 실천율</span>
-                        <span id="myProgressPercent">0%</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="myProgressFill" style="width: 0%"></div>
-                    </div>
+                    <div class="progress-header"><span>전체 실천율</span><span id="myProgressPercent">0%</span></div>
+                    <div class="progress-bar"><div class="progress-fill" id="myProgressFill" style="width: 0%"></div></div>
                 </div>
             </div>
             <div class="card">
-                <div class="card-header">
-                    <div class="card-title"><i class="fas fa-trophy"></i> 공부시간 랭킹</div>
-                </div>
+                <div class="card-header"><div class="card-title"><i class="fas fa-trophy"></i> 공부시간 랭킹</div></div>
                 <div id="rankingList"></div>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
     <nav class="bottom-nav" id="bottomNav" style="display: none;">
         <div class="bottom-nav-content">
-            <div class="nav-item active" onclick="showScreen('homeScreen')">
-                <i class="fas fa-home"></i><span>홈</span>
-            </div>
-            <div class="nav-item" onclick="showScreen('planScreen')">
-                <i class="fas fa-calendar-alt"></i><span>계획</span>
-            </div>
-            <div class="nav-item" onclick="showScreen('recordScreen')">
-                <i class="fas fa-check-circle"></i><span>실천</span>
-            </div>
-            <div class="nav-item" onclick="showScreen('statsScreen')">
-                <i class="fas fa-chart-line"></i><span>통계</span>
-            </div>
+            <div class="nav-item active" onclick="showScreen('homeScreen')"><i class="fas fa-home"></i><span>홈</span></div>
+            <div class="nav-item" onclick="showScreen('planScreen')"><i class="fas fa-calendar-alt"></i><span>계획</span></div>
+            <div class="nav-item" onclick="showScreen('recordScreen')"><i class="fas fa-check-circle"></i><span>실천</span></div>
+            <div class="nav-item" onclick="showScreen('statsScreen')"><i class="fas fa-chart-line"></i><span>통계</span></div>
         </div>
     </nav>
 
-    <!-- 교재 추가 모달 -->
     <div class="modal-overlay" id="addBookModal">
         <div class="modal">
             <div class="modal-header">
@@ -1044,7 +669,6 @@
         </div>
     </div>
 
-    <!-- 계획 추가 모달 -->
     <div class="modal-overlay" id="addPlanModal">
         <div class="modal">
             <div class="modal-header">
@@ -1070,7 +694,6 @@
         </div>
     </div>
 
-    <!-- 실천 기록 모달 -->
     <div class="modal-overlay" id="recordModal">
         <div class="modal">
             <div class="modal-header">
@@ -1078,170 +701,96 @@
                 <button class="modal-close" onclick="closeModal('recordModal')"><i class="fas fa-times"></i></button>
             </div>
             <div class="record-form">
-                <div class="form-group">
-                    <label id="recordBookLabel">수특 독서</label>
-                </div>
+                <div class="form-group"><label id="recordBookLabel">수특 독서</label></div>
                 <div class="input-row">
-                    <div class="form-group">
-                        <label>시작 페이지</label>
-                        <input type="number" id="recordStartPage" placeholder="예: 9">
-                    </div>
-                    <div class="form-group">
-                        <label>끝 페이지</label>
-                        <input type="number" id="recordEndPage" placeholder="예: 15">
-                    </div>
+                    <div class="form-group"><label>시작 페이지</label><input type="number" id="recordStartPage" placeholder="예: 9"></div>
+                    <div class="form-group"><label>끝 페이지</label><input type="number" id="recordEndPage" placeholder="예: 15"></div>
                 </div>
-                <div class="form-group">
-                    <label>실제 공부 시간 (분)</label>
-                    <input type="number" id="recordTime" placeholder="예: 55">
-                </div>
-                <div class="form-group">
-                    <label>비고 (선택)</label>
-                    <input type="text" id="recordNote" placeholder="메모가 있다면 입력하세요">
-                </div>
+                <div class="form-group"><label>실제 공부 시간 (분)</label><input type="number" id="recordTime" placeholder="예: 55"></div>
+                <div class="form-group"><label>비고 (선택)</label><input type="text" id="recordNote" placeholder="메모가 있다면 입력하세요"></div>
                 <button class="btn btn-success" onclick="saveRecord()"><i class="fas fa-check"></i> 완료 저장</button>
             </div>
         </div>
     </div>
 
-    <!-- Toast -->
     <div class="toast" id="toast">저장되었습니다!</div>
 
     <script>
-        // ============================================
-        // 데이터 (실제로는 Google Sheets Apps Script 연동)
-        // ============================================
+        // ⭐ Google Sheets API URL
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwGFbsj8FgFIuF-iFkJ4ekyS76MWQf9UrUysJ-Fs12vuVByJwenoYRgOJeOZiPOa6gzkg/exec';
+
         let currentUser = null;
         let selectedPlanDate = new Date();
         let recordDate = new Date();
         let currentRecordPlan = null;
-
-        const sampleStudents = {
-            '7층': ['성지원', '김한나', '박찬우'],
-            '8층': ['김연서', '이윤지', '성예준', '박민수']
-        };
-
         let userBooks = [];
         let userPlans = [];
-        let userRecords = [];
 
-        // ============================================
-        // 초기화
-        // ============================================
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('loginFloor').addEventListener('change', updateStudentList);
-            updateTodayDate();
-        });
-
-        function updateStudentList() {
-            const floor = document.getElementById('loginFloor').value;
-            const nameSelect = document.getElementById('loginName');
-            nameSelect.innerHTML = '<option value="">선택해주세요</option>';
-            if (floor && sampleStudents[floor]) {
-                sampleStudents[floor].forEach(name => {
-                    nameSelect.innerHTML += `<option value="${name}">${name}</option>`;
-                });
+        async function apiCall(params) {
+            const url = API_URL + '?' + new URLSearchParams(params).toString();
+            try {
+                const response = await fetch(url);
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                showToast('서버 연결 오류');
+                return { success: false, error: error.message };
             }
         }
 
-        // ============================================
-        // 로그인/로그아웃
-        // ============================================
-        function login() {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('loginFloor').addEventListener('change', loadStudents);
+            updateTodayDate();
+        });
+
+        async function loadStudents() {
+            const floor = document.getElementById('loginFloor').value;
+            const nameSelect = document.getElementById('loginName');
+            nameSelect.innerHTML = '<option value="">로딩중...</option>';
+            if (!floor) { nameSelect.innerHTML = '<option value="">층을 먼저 선택해주세요</option>'; return; }
+            const result = await apiCall({ action: 'getStudents', floor: floor });
+            if (result.success) {
+                nameSelect.innerHTML = '<option value="">선택해주세요</option>';
+                result.students.forEach(name => { nameSelect.innerHTML += `<option value="${name}">${name}</option>`; });
+            } else {
+                nameSelect.innerHTML = '<option value="">학생 목록을 불러올 수 없습니다</option>';
+            }
+        }
+
+        async function login() {
             const floor = document.getElementById('loginFloor').value;
             const name = document.getElementById('loginName').value;
-            if (!floor || !name) {
-                showToast('층과 이름을 선택해주세요');
-                return;
-            }
+            if (!floor || !name) { showToast('층과 이름을 선택해주세요'); return; }
+            document.getElementById('loginBtn').disabled = true;
+            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-spinner fa-spin"></i> 로딩중...';
             currentUser = { floor, name };
-            loadSampleData();
+            await loadBooks();
             document.getElementById('headerUserName').textContent = name;
             document.getElementById('headerAvatar').textContent = name[0];
             document.getElementById('mainHeader').style.display = 'block';
             document.getElementById('bottomNav').style.display = 'block';
+            document.getElementById('loginBtn').disabled = false;
+            document.getElementById('loginBtn').innerHTML = '<i class="fas fa-sign-in-alt"></i> 시작하기';
             showScreen('homeScreen');
             updateHomeStats();
         }
 
         function logout() {
-            currentUser = null;
+            currentUser = null; userBooks = []; userPlans = [];
             document.getElementById('mainHeader').style.display = 'none';
             document.getElementById('bottomNav').style.display = 'none';
             showScreen('loginScreen');
         }
 
-        function loadSampleData() {
-            userBooks = [
-                { subject: '국어', name: '수특 독서' },
-                { subject: '국어', name: '수특 문학' },
-                { subject: '수학', name: '뉴런' },
-                { subject: '수학', name: '자이스토리' },
-                { subject: '영어', name: '수특 영어' }
-            ];
-            const today = formatDate(new Date());
-            userPlans = [
-                { date: today, subject: '국어', book: '수특 독서', time: 60, status: 'pending' },
-                { date: today, subject: '수학', book: '뉴런', time: 90, status: 'pending' },
-                { date: today, subject: '영어', book: '수특 영어', time: 60, status: 'pending' }
-            ];
-            userRecords = [];
+        async function loadBooks() {
+            const result = await apiCall({ action: 'getBooks', floor: currentUser.floor, name: currentUser.name });
+            if (result.success) userBooks = result.books;
         }
 
-        // ============================================
-        // 화면 전환
-        // ============================================
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById(screenId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const navMap = { 'homeScreen': 0, 'planScreen': 1, 'recordScreen': 2, 'statsScreen': 3 };
-            if (navMap[screenId] !== undefined) {
-                document.querySelectorAll('.nav-item')[navMap[screenId]].classList.add('active');
-            }
-            if (screenId === 'bookScreen') renderBookList();
-            if (screenId === 'planScreen') initPlanScreen();
-            if (screenId === 'recordScreen') initRecordScreen();
-            if (screenId === 'statsScreen') initStatsScreen();
-        }
-
-        // ============================================
-        // 홈 화면
-        // ============================================
-        function updateTodayDate() {
-            const options = { month: 'long', day: 'numeric', weekday: 'short' };
-            document.getElementById('todayDate').textContent = new Date().toLocaleDateString('ko-KR', options);
-        }
-
-        function updateHomeStats() {
-            const today = formatDate(new Date());
-            const todayPlans = userPlans.filter(p => p.date === today);
-            const completed = todayPlans.filter(p => p.status === 'completed').length;
-            const totalTime = userRecords.filter(r => r.date === today).reduce((sum, r) => sum + r.time, 0);
-            document.getElementById('statPlan').textContent = todayPlans.length;
-            document.getElementById('statComplete').textContent = completed;
-            document.getElementById('statTime').textContent = (totalTime / 60).toFixed(1) + 'h';
-            document.getElementById('statPoint').textContent = completed;
-            const percent = todayPlans.length > 0 ? Math.round(completed / todayPlans.length * 100) : 0;
-            document.getElementById('progressPercent').textContent = percent + '%';
-            document.getElementById('progressFill').style.width = percent + '%';
-        }
-
-        // ============================================
-        // 교재 관리
-        // ============================================
         function renderBookList() {
             const list = document.getElementById('bookList');
-            if (userBooks.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>등록된 교재가 없습니다</p></div>';
-                return;
-            }
-            list.innerHTML = userBooks.map(book => `
-                <div class="subject-item">
-                    <div class="subject-info"><h4>${book.name}</h4><p>${book.subject}</p></div>
-                    <span class="subject-badge badge-${getBadgeClass(book.subject)}">${book.subject}</span>
-                </div>
-            `).join('');
+            if (userBooks.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-book"></i><p>등록된 교재가 없습니다</p></div>'; return; }
+            list.innerHTML = userBooks.map(book => `<div class="subject-item"><div class="subject-info"><h4>${book.name}</h4><p>${book.subject}</p></div><span class="subject-badge badge-${getBadgeClass(book.subject)}">${book.subject}</span></div>`).join('');
         }
 
         function getBadgeClass(subject) {
@@ -1249,25 +798,27 @@
             return map[subject] || 'korean';
         }
 
-        function addBook() {
+        async function addBook() {
             const subject = document.getElementById('bookSubject').value;
-            const name = document.getElementById('bookName').value;
-            if (!subject || !name) { showToast('과목과 교재명을 입력해주세요'); return; }
-            userBooks.push({ subject, name });
-            closeModal('addBookModal');
-            renderBookList();
-            showToast('교재가 추가되었습니다');
-            document.getElementById('bookSubject').value = '';
-            document.getElementById('bookName').value = '';
+            const bookName = document.getElementById('bookName').value;
+            if (!subject || !bookName) { showToast('과목과 교재명을 입력해주세요'); return; }
+            const result = await apiCall({ action: 'addBook', floor: currentUser.floor, name: currentUser.name, subject: subject, bookName: bookName });
+            if (result.success) {
+                userBooks.push({ subject, name: bookName });
+                closeModal('addBookModal'); renderBookList(); showToast('교재가 추가되었습니다');
+                document.getElementById('bookSubject').value = ''; document.getElementById('bookName').value = '';
+            } else { showToast('저장 실패'); }
         }
 
-        // ============================================
-        // 주간 계획
-        // ============================================
-        function initPlanScreen() {
-            renderWeekView();
-            renderPlanList();
-            updatePlanBookSelect();
+        async function initPlanScreen() { renderWeekView(); await loadPlans(); renderPlanList(); updatePlanBookSelect(); }
+
+        async function loadPlans() {
+            const start = new Date(selectedPlanDate);
+            const day = start.getDay();
+            start.setDate(start.getDate() - day + (day === 0 ? -6 : 1));
+            const end = new Date(start); end.setDate(start.getDate() + 6);
+            const result = await apiCall({ action: 'getPlans', floor: currentUser.floor, name: currentUser.name, startDate: formatDate(start), endDate: formatDate(end) });
+            if (result.success) userPlans = result.plans;
         }
 
         function renderWeekView() {
@@ -1275,200 +826,150 @@
             const days = ['일', '월', '화', '수', '목', '금', '토'];
             const start = new Date(selectedPlanDate);
             const day = start.getDay();
-            const diff = start.getDate() - day + (day === 0 ? -6 : 1);
-            start.setDate(diff);
+            start.setDate(start.getDate() - day + (day === 0 ? -6 : 1));
             let html = '';
             for (let i = 0; i < 7; i++) {
-                const date = new Date(start);
-                date.setDate(start.getDate() + i);
+                const date = new Date(start); date.setDate(start.getDate() + i);
                 const isActive = formatDate(date) === formatDate(selectedPlanDate);
                 const hasPlan = userPlans.some(p => p.date === formatDate(date));
-                html += `<div class="day-item ${isActive ? 'active' : ''} ${hasPlan ? 'has-plan' : ''}" onclick="selectPlanDate('${formatDate(date)}')">
-                    <div class="day-name">${days[date.getDay()]}</div>
-                    <div class="day-num">${date.getDate()}</div>
-                </div>`;
+                html += `<div class="day-item ${isActive ? 'active' : ''} ${hasPlan ? 'has-plan' : ''}" onclick="selectPlanDate('${formatDate(date)}')"><div class="day-name">${days[date.getDay()]}</div><div class="day-num">${date.getDate()}</div></div>`;
             }
             weekView.innerHTML = html;
-            const weekNum = getWeekNumber(selectedPlanDate);
-            document.getElementById('weekDisplay').textContent = `${selectedPlanDate.getMonth() + 1}월 ${weekNum}주차`;
+            document.getElementById('weekDisplay').textContent = `${selectedPlanDate.getMonth() + 1}월 ${getWeekNumber(selectedPlanDate)}주차`;
         }
 
-        function selectPlanDate(dateStr) {
-            selectedPlanDate = new Date(dateStr);
-            renderWeekView();
-            renderPlanList();
-            const options = { month: 'long', day: 'numeric' };
-            document.getElementById('selectedDateTitle').textContent = selectedPlanDate.toLocaleDateString('ko-KR', options);
+        async function selectPlanDate(dateStr) {
+            selectedPlanDate = new Date(dateStr); renderWeekView(); renderPlanList();
+            document.getElementById('selectedDateTitle').textContent = selectedPlanDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
         }
 
-        function changeWeek(delta) {
-            selectedPlanDate.setDate(selectedPlanDate.getDate() + (delta * 7));
-            renderWeekView();
-            renderPlanList();
-        }
+        async function changeWeek(delta) { selectedPlanDate.setDate(selectedPlanDate.getDate() + (delta * 7)); await loadPlans(); renderWeekView(); renderPlanList(); }
 
         function renderPlanList() {
             const list = document.getElementById('planList');
-            const dateStr = formatDate(selectedPlanDate);
-            const dayPlans = userPlans.filter(p => p.date === dateStr);
-            if (dayPlans.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-plus"></i><p>이 날의 계획이 없습니다</p></div>';
-                return;
-            }
-            list.innerHTML = dayPlans.map(plan => `
-                <div class="plan-item ${plan.status}">
-                    <div class="plan-header">
-                        <div><div class="plan-title">${plan.book}</div><div class="plan-subtitle">${plan.subject}</div></div>
-                        <div class="plan-time">${plan.time}분</div>
-                    </div>
-                </div>
-            `).join('');
+            const dayPlans = userPlans.filter(p => p.date === formatDate(selectedPlanDate));
+            if (dayPlans.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-calendar-plus"></i><p>이 날의 계획이 없습니다</p></div>'; return; }
+            list.innerHTML = dayPlans.map(plan => `<div class="plan-item"><div class="plan-header"><div><div class="plan-title">${plan.book}</div><div class="plan-subtitle">${plan.subject}</div></div><div class="plan-time">${plan.time}분</div></div></div>`).join('');
         }
 
         function updatePlanBookSelect() {
             const select = document.getElementById('planBook');
             select.innerHTML = '<option value="">선택해주세요</option>';
-            userBooks.forEach(book => {
-                select.innerHTML += `<option value="${book.subject}|${book.name}">[${book.subject}] ${book.name}</option>`;
-            });
+            userBooks.forEach(book => { select.innerHTML += `<option value="${book.subject}|${book.name}">[${book.subject}] ${book.name}</option>`; });
         }
 
-        function addPlan() {
+        async function addPlan() {
             const bookValue = document.getElementById('planBook').value;
             const time = parseInt(document.getElementById('planTime').value);
             if (!bookValue) { showToast('교재를 선택해주세요'); return; }
-            const [subject, book] = bookValue.split('|');
-            userPlans.push({ date: formatDate(selectedPlanDate), subject, book, time, status: 'pending' });
-            closeModal('addPlanModal');
-            renderPlanList();
-            renderWeekView();
-            showToast('계획이 추가되었습니다');
+            const [subject, bookName] = bookValue.split('|');
+            const result = await apiCall({ action: 'addPlan', floor: currentUser.floor, name: currentUser.name, date: formatDate(selectedPlanDate), subject: subject, bookName: bookName, time: time });
+            if (result.success) {
+                userPlans.push({ date: formatDate(selectedPlanDate), subject, book: bookName, time, status: 'O' });
+                closeModal('addPlanModal'); renderPlanList(); renderWeekView(); showToast('계획이 추가되었습니다');
+            } else { showToast('저장 실패'); }
         }
 
-        // ============================================
-        // 실천 기록
-        // ============================================
-        function initRecordScreen() {
-            const options = { month: 'long', day: 'numeric' };
-            document.getElementById('recordDateDisplay').textContent = recordDate.toLocaleDateString('ko-KR', options);
-            renderRecordList();
+        async function initRecordScreen() {
+            document.getElementById('recordDateDisplay').textContent = recordDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
+            await loadRecords();
         }
 
-        function changeRecordDate(delta) {
-            recordDate.setDate(recordDate.getDate() + delta);
-            const options = { month: 'long', day: 'numeric' };
-            document.getElementById('recordDateDisplay').textContent = recordDate.toLocaleDateString('ko-KR', options);
-            renderRecordList();
+        async function loadRecords() {
+            const result = await apiCall({ action: 'getRecords', floor: currentUser.floor, name: currentUser.name, date: formatDate(recordDate) });
+            if (result.success) renderRecordList(result.records);
         }
 
-        function renderRecordList() {
+        function renderRecordList(records) {
             const list = document.getElementById('recordList');
-            const dateStr = formatDate(recordDate);
-            const dayPlans = userPlans.filter(p => p.date === dateStr);
-            if (dayPlans.length === 0) {
-                list.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>이 날의 계획이 없습니다</p></div>';
-                return;
-            }
-            list.innerHTML = dayPlans.map((plan, index) => `
-                <div class="plan-item ${plan.status}">
-                    <div class="plan-header">
-                        <div><div class="plan-title">${plan.book}</div><div class="plan-subtitle">${plan.subject} · ${plan.time}분 계획</div></div>
-                        ${plan.status === 'pending' ? '<span style="color: var(--gray-400); font-size: 0.85rem;">대기중</span>' : 
-                          plan.status === 'completed' ? '<span style="color: var(--success); font-size: 0.85rem;"><i class="fas fa-check"></i> 완료</span>' : 
-                          '<span style="color: var(--danger); font-size: 0.85rem;"><i class="fas fa-times"></i> 미완료</span>'}
-                    </div>
-                    ${plan.status === 'pending' ? `<div class="plan-actions">
-                        <button class="plan-btn complete" onclick="openRecordModal(${index}, '${dateStr}')"><i class="fas fa-check"></i> 완료</button>
-                        <button class="plan-btn fail" onclick="markFailed(${index}, '${dateStr}')"><i class="fas fa-times"></i> 미완료</button>
-                    </div>` : ''}
-                </div>
-            `).join('');
+            if (!records || records.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>이 날의 계획이 없습니다</p></div>'; return; }
+            list.innerHTML = records.map(plan => `<div class="plan-item ${plan.status}"><div class="plan-header"><div><div class="plan-title">${plan.book}</div><div class="plan-subtitle">${plan.subject} · ${plan.planTime}분 계획</div></div>${plan.status === 'pending' ? '<span style="color: var(--gray-400);">대기중</span>' : plan.status === 'O' ? '<span style="color: var(--success);"><i class="fas fa-check"></i> 완료</span>' : '<span style="color: var(--danger);"><i class="fas fa-times"></i> 미완료</span>'}</div>${plan.status === 'pending' ? `<div class="plan-actions"><button class="plan-btn complete" onclick="openRecordModal('${plan.subject}', '${plan.book}')"><i class="fas fa-check"></i> 완료</button><button class="plan-btn fail" onclick="markFailed('${plan.subject}', '${plan.book}')"><i class="fas fa-times"></i> 미완료</button></div>` : ''}</div>`).join('');
         }
 
-        function openRecordModal(index, dateStr) {
-            const plan = userPlans.filter(p => p.date === dateStr)[index];
-            currentRecordPlan = { index, dateStr, plan };
-            document.getElementById('recordBookLabel').textContent = `[${plan.subject}] ${plan.book}`;
+        async function changeRecordDate(delta) {
+            recordDate.setDate(recordDate.getDate() + delta);
+            document.getElementById('recordDateDisplay').textContent = recordDate.toLocaleDateString('ko-KR', { month: 'long', day: 'numeric' });
+            await loadRecords();
+        }
+
+        function openRecordModal(subject, book) {
+            currentRecordPlan = { subject, book };
+            document.getElementById('recordBookLabel').textContent = `[${subject}] ${book}`;
             openModal('recordModal');
         }
 
-        function saveRecord() {
-            const startPage = document.getElementById('recordStartPage').value;
-            const endPage = document.getElementById('recordEndPage').value;
+        async function saveRecord() {
             const time = parseInt(document.getElementById('recordTime').value) || 0;
-            const note = document.getElementById('recordNote').value;
             if (!time) { showToast('공부 시간을 입력해주세요'); return; }
-            const plans = userPlans.filter(p => p.date === currentRecordPlan.dateStr);
-            plans[currentRecordPlan.index].status = 'completed';
-            userRecords.push({ date: currentRecordPlan.dateStr, subject: currentRecordPlan.plan.subject, book: currentRecordPlan.plan.book, startPage: parseInt(startPage) || 0, endPage: parseInt(endPage) || 0, time, note });
-            closeModal('recordModal');
-            renderRecordList();
-            updateHomeStats();
-            showToast('실천 기록이 저장되었습니다! 🎉');
-            document.getElementById('recordStartPage').value = '';
-            document.getElementById('recordEndPage').value = '';
-            document.getElementById('recordTime').value = '';
-            document.getElementById('recordNote').value = '';
+            const result = await apiCall({ action: 'saveRecord', floor: currentUser.floor, name: currentUser.name, date: formatDate(recordDate), subject: currentRecordPlan.subject, bookName: currentRecordPlan.book, startPage: document.getElementById('recordStartPage').value, endPage: document.getElementById('recordEndPage').value, actualTime: time, note: document.getElementById('recordNote').value });
+            if (result.success) {
+                closeModal('recordModal'); await loadRecords(); updateHomeStats(); showToast('실천 기록이 저장되었습니다! 🎉');
+                document.getElementById('recordStartPage').value = ''; document.getElementById('recordEndPage').value = '';
+                document.getElementById('recordTime').value = ''; document.getElementById('recordNote').value = '';
+            } else { showToast('저장 실패'); }
         }
 
-        function markFailed(index, dateStr) {
-            const plans = userPlans.filter(p => p.date === dateStr);
-            plans[index].status = 'failed';
-            renderRecordList();
-            updateHomeStats();
-            showToast('미완료로 기록되었습니다');
+        async function markFailed(subject, book) {
+            const result = await apiCall({ action: 'markFailed', floor: currentUser.floor, name: currentUser.name, date: formatDate(recordDate), subject: subject, bookName: book });
+            if (result.success) { await loadRecords(); updateHomeStats(); showToast('미완료로 기록되었습니다'); }
         }
 
-        // ============================================
-        // 통계/랭킹
-        // ============================================
-        function initStatsScreen() {
-            const totalPlans = userPlans.length;
-            const completed = userPlans.filter(p => p.status === 'completed').length;
-            const totalTime = userRecords.reduce((sum, r) => sum + r.time, 0);
-            document.getElementById('myTotalPlan').textContent = totalPlans;
-            document.getElementById('myTotalComplete').textContent = completed;
-            document.getElementById('myTotalTime').textContent = (totalTime / 60).toFixed(1) + 'h';
-            document.getElementById('myTotalPoint').textContent = completed;
-            const percent = totalPlans > 0 ? Math.round(completed / totalPlans * 100) : 0;
-            document.getElementById('myProgressPercent').textContent = percent + '%';
-            document.getElementById('myProgressFill').style.width = percent + '%';
-            renderRanking();
+        async function initStatsScreen() {
+            const statsResult = await apiCall({ action: 'getStats', floor: currentUser.floor, name: currentUser.name });
+            if (statsResult.success) {
+                const s = statsResult.stats;
+                document.getElementById('myTotalPlan').textContent = s.totalPlans;
+                document.getElementById('myTotalComplete').textContent = s.completed;
+                document.getElementById('myTotalTime').textContent = s.totalTimeHours + 'h';
+                document.getElementById('myTotalPoint').textContent = s.points;
+                document.getElementById('myProgressPercent').textContent = s.rate + '%';
+                document.getElementById('myProgressFill').style.width = s.rate + '%';
+            }
+            const rankingResult = await apiCall({ action: 'getRanking' });
+            if (rankingResult.success) renderRanking(rankingResult.rankings);
         }
 
-        function renderRanking() {
-            const rankings = [
-                { name: '이윤지', floor: '8층', time: 135, rate: 100 },
-                { name: '김연서', floor: '8층', time: 120, rate: 80 },
-                { name: '성지원', floor: '7층', time: 95, rate: 75 },
-                { name: '박민수', floor: '8층', time: 80, rate: 70 },
-                { name: '김한나', floor: '7층', time: 60, rate: 65 }
-            ];
-            document.getElementById('rankingList').innerHTML = rankings.map((r, i) => `
-                <div class="ranking-item ${i < 3 ? 'top-' + (i+1) : ''}">
-                    <div class="ranking-num">${i + 1}</div>
-                    <div class="ranking-info"><div class="ranking-name">${r.name}</div><div class="ranking-detail">${r.floor} · 실천율 ${r.rate}%</div></div>
-                    <div class="ranking-score">${(r.time / 60).toFixed(1)}h</div>
-                </div>
-            `).join('');
+        function renderRanking(rankings) {
+            if (!rankings || rankings.length === 0) { document.getElementById('rankingList').innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>랭킹 데이터가 없습니다</p></div>'; return; }
+            document.getElementById('rankingList').innerHTML = rankings.map((r, i) => `<div class="ranking-item ${i < 3 ? 'top-' + (i+1) : ''}"><div class="ranking-num">${i + 1}</div><div class="ranking-info"><div class="ranking-name">${r.name}</div><div class="ranking-detail">${r.floor} · 실천율 ${r.rate}%</div></div><div class="ranking-score">${r.totalTime}h</div></div>`).join('');
         }
 
-        // ============================================
-        // 유틸리티
-        // ============================================
+        async function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navMap = { 'homeScreen': 0, 'planScreen': 1, 'recordScreen': 2, 'statsScreen': 3 };
+            if (navMap[screenId] !== undefined) document.querySelectorAll('.nav-item')[navMap[screenId]].classList.add('active');
+            if (screenId === 'bookScreen') renderBookList();
+            if (screenId === 'planScreen') await initPlanScreen();
+            if (screenId === 'recordScreen') await initRecordScreen();
+            if (screenId === 'statsScreen') await initStatsScreen();
+        }
+
+        function updateTodayDate() { document.getElementById('todayDate').textContent = new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }); }
+
+        async function updateHomeStats() {
+            const result = await apiCall({ action: 'getRecords', floor: currentUser.floor, name: currentUser.name, date: formatDate(new Date()) });
+            if (result.success) {
+                const records = result.records || [];
+                const total = records.length;
+                const completed = records.filter(r => r.status === 'O').length;
+                const totalTime = records.filter(r => r.status === 'O').reduce((sum, r) => sum + (r.record?.actualTime || 0), 0);
+                document.getElementById('statPlan').textContent = total;
+                document.getElementById('statComplete').textContent = completed;
+                document.getElementById('statTime').textContent = (totalTime / 60).toFixed(1) + 'h';
+                document.getElementById('statPoint').textContent = completed;
+                const percent = total > 0 ? Math.round(completed / total * 100) : 0;
+                document.getElementById('progressPercent').textContent = percent + '%';
+                document.getElementById('progressFill').style.width = percent + '%';
+            }
+        }
+
         function openModal(modalId) { document.getElementById(modalId).classList.add('active'); }
         function closeModal(modalId) { document.getElementById(modalId).classList.remove('active'); }
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
+        function showToast(message) { const toast = document.getElementById('toast'); toast.textContent = message; toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 2000); }
         function formatDate(date) { return date.toISOString().split('T')[0]; }
-        function getWeekNumber(date) {
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-            return Math.ceil((date.getDate() + firstDay.getDay()) / 7);
-        }
+        function getWeekNumber(date) { const firstDay = new Date(date.getFullYear(), date.getMonth(), 1); return Math.ceil((date.getDate() + firstDay.getDay()) / 7); }
     </script>
 </body>
 </html>
