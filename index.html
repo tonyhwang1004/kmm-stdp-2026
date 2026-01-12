@@ -507,6 +507,141 @@
             color: var(--gray-500);
         }
         .empty-state i { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+        
+        /* 스톱워치 스타일 */
+        .stopwatch-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            z-index: 200;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .stopwatch-container.active {
+            display: flex;
+        }
+        .stopwatch-subject {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .stopwatch-book {
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .stopwatch-display {
+            font-size: 72px;
+            font-weight: 700;
+            color: white;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .stopwatch-seconds {
+            font-size: 36px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 50px;
+        }
+        .stopwatch-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 30px;
+        }
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 1.5s infinite;
+        }
+        .status-dot.paused {
+            background: var(--warning);
+            animation: none;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-text {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .stopwatch-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        .sw-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .sw-btn:active {
+            transform: scale(0.95);
+        }
+        .sw-btn-pause {
+            background: var(--warning);
+            color: white;
+        }
+        .sw-btn-play {
+            background: var(--success);
+            color: white;
+        }
+        .sw-btn-stop {
+            background: var(--danger);
+            color: white;
+        }
+        .sw-btn-cancel {
+            background: var(--gray-500);
+            color: white;
+        }
+        .stopwatch-info {
+            position: absolute;
+            bottom: 100px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            text-align: center;
+        }
+        .plan-btn.timer {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+        }
+        .plan-btn.timer:hover {
+            opacity: 0.9;
+        }
+        .timer-running-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 10px;
+            background: var(--accent);
+            color: white;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+        }
     </style>
 </head>
 <body>
@@ -708,12 +843,38 @@
                 </div>
                 <div class="form-group"><label>실제 공부 시간 (분)</label><input type="number" id="recordTime" placeholder="예: 55"></div>
                 <div class="form-group"><label>비고 (선택)</label><input type="text" id="recordNote" placeholder="메모가 있다면 입력하세요"></div>
-                <button class="btn btn-success" onclick="saveRecord()"><i class="fas fa-check"></i> 완료 저장</button>
+                <button class="btn btn-success" onclick="saveRecord()"><i class="fas fa-hand-paper"></i> 검사 요청</button>
             </div>
         </div>
     </div>
 
     <div class="toast" id="toast">저장되었습니다!</div>
+
+    <!-- 스톱워치 화면 -->
+    <div class="stopwatch-container" id="stopwatchScreen">
+        <div class="stopwatch-subject" id="swSubject">수학</div>
+        <div class="stopwatch-book" id="swBook">자이스토리</div>
+        <div class="stopwatch-display" id="swDisplay">00:00</div>
+        <div class="stopwatch-seconds" id="swSeconds">:00</div>
+        <div class="stopwatch-status">
+            <div class="status-dot" id="swStatusDot"></div>
+            <span class="status-text" id="swStatusText">공부 중...</span>
+        </div>
+        <div class="stopwatch-buttons">
+            <button class="sw-btn sw-btn-cancel" onclick="cancelStopwatch()" title="취소">
+                <i class="fas fa-times"></i>
+            </button>
+            <button class="sw-btn sw-btn-pause" id="swPauseBtn" onclick="toggleStopwatch()">
+                <i class="fas fa-pause" id="swPauseIcon"></i>
+            </button>
+            <button class="sw-btn sw-btn-stop" onclick="stopStopwatch()" title="종료 & 기록">
+                <i class="fas fa-stop"></i>
+            </button>
+        </div>
+        <div class="stopwatch-info">
+            종료 버튼을 누르면 공부 시간이 자동으로 기록됩니다
+        </div>
+    </div>
 
     <script>
         // ⭐ Google Sheets API URL
@@ -725,6 +886,116 @@
         let currentRecordPlan = null;
         let userBooks = [];
         let userPlans = [];
+
+        // 스톱워치 변수
+        let swInterval = null;
+        let swStartTime = null;
+        let swElapsedTime = 0;
+        let swPausedTime = 0;
+        let swIsRunning = false;
+        let swCurrentPlan = null;
+
+        // 스톱워치 시작
+        function startStopwatch(subject, book) {
+            swCurrentPlan = { subject, book };
+            swElapsedTime = 0;
+            swPausedTime = 0;
+            swStartTime = Date.now();
+            swIsRunning = true;
+            
+            document.getElementById('swSubject').textContent = subject;
+            document.getElementById('swBook').textContent = book;
+            document.getElementById('stopwatchScreen').classList.add('active');
+            document.getElementById('swPauseIcon').className = 'fas fa-pause';
+            document.getElementById('swPauseBtn').className = 'sw-btn sw-btn-pause';
+            document.getElementById('swStatusDot').classList.remove('paused');
+            document.getElementById('swStatusText').textContent = '공부 중...';
+            
+            updateStopwatchDisplay();
+            swInterval = setInterval(updateStopwatchDisplay, 1000);
+        }
+
+        // 스톱워치 일시정지/재개
+        function toggleStopwatch() {
+            if (swIsRunning) {
+                // 일시정지
+                swIsRunning = false;
+                swPausedTime = Date.now();
+                clearInterval(swInterval);
+                document.getElementById('swPauseIcon').className = 'fas fa-play';
+                document.getElementById('swPauseBtn').className = 'sw-btn sw-btn-play';
+                document.getElementById('swStatusDot').classList.add('paused');
+                document.getElementById('swStatusText').textContent = '일시정지';
+            } else {
+                // 재개
+                swIsRunning = true;
+                const pauseDuration = Date.now() - swPausedTime;
+                swStartTime += pauseDuration;
+                document.getElementById('swPauseIcon').className = 'fas fa-pause';
+                document.getElementById('swPauseBtn').className = 'sw-btn sw-btn-pause';
+                document.getElementById('swStatusDot').classList.remove('paused');
+                document.getElementById('swStatusText').textContent = '공부 중...';
+                swInterval = setInterval(updateStopwatchDisplay, 1000);
+            }
+        }
+
+        // 스톱워치 표시 업데이트
+        function updateStopwatchDisplay() {
+            const now = swIsRunning ? Date.now() : swPausedTime;
+            swElapsedTime = Math.floor((now - swStartTime) / 1000);
+            
+            const hours = Math.floor(swElapsedTime / 3600);
+            const minutes = Math.floor((swElapsedTime % 3600) / 60);
+            const seconds = swElapsedTime % 60;
+            
+            if (hours > 0) {
+                document.getElementById('swDisplay').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('swDisplay').textContent = 
+                    `${minutes.toString().padStart(2, '0')}`;
+            }
+            document.getElementById('swSeconds').textContent = `:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // 스톱워치 종료 & 기록
+        function stopStopwatch() {
+            if (swInterval) clearInterval(swInterval);
+            
+            const totalMinutes = Math.ceil(swElapsedTime / 60);
+            
+            if (totalMinutes < 1) {
+                showToast('1분 이상 공부해야 기록됩니다');
+                return;
+            }
+            
+            // 스톱워치 화면 닫기
+            document.getElementById('stopwatchScreen').classList.remove('active');
+            
+            // 실천 기록 모달 열기 (시간 자동 입력)
+            currentRecordPlan = swCurrentPlan;
+            document.getElementById('recordBookLabel').textContent = `[${swCurrentPlan.subject}] ${swCurrentPlan.book}`;
+            document.getElementById('recordTime').value = totalMinutes;
+            openModal('recordModal');
+            
+            showToast(`⏱️ ${totalMinutes}분 자동 입력됨!`);
+            
+            // 초기화
+            swCurrentPlan = null;
+            swElapsedTime = 0;
+            swIsRunning = false;
+        }
+
+        // 스톱워치 취소
+        function cancelStopwatch() {
+            if (confirm('타이머를 취소하시겠습니까?\n기록되지 않습니다.')) {
+                if (swInterval) clearInterval(swInterval);
+                document.getElementById('stopwatchScreen').classList.remove('active');
+                swCurrentPlan = null;
+                swElapsedTime = 0;
+                swIsRunning = false;
+            }
+        }
 
         async function apiCall(params) {
             const url = API_URL + '?' + new URLSearchParams(params).toString();
@@ -883,7 +1154,43 @@
         function renderRecordList(records) {
             const list = document.getElementById('recordList');
             if (!records || records.length === 0) { list.innerHTML = '<div class="empty-state"><i class="fas fa-clipboard-list"></i><p>이 날의 계획이 없습니다</p></div>'; return; }
-            list.innerHTML = records.map(plan => `<div class="plan-item ${plan.status}"><div class="plan-header"><div><div class="plan-title">${plan.book}</div><div class="plan-subtitle">${plan.subject} · ${plan.planTime}분 계획</div></div>${plan.status === 'pending' ? '<span style="color: var(--gray-400);">대기중</span>' : plan.status === 'O' ? '<span style="color: var(--success);"><i class="fas fa-check"></i> 완료</span>' : '<span style="color: var(--danger);"><i class="fas fa-times"></i> 미완료</span>'}</div>${plan.status === 'pending' ? `<div class="plan-actions"><button class="plan-btn complete" onclick="openRecordModal('${plan.subject}', '${plan.book}')"><i class="fas fa-check"></i> 완료</button><button class="plan-btn fail" onclick="markFailed('${plan.subject}', '${plan.book}')"><i class="fas fa-times"></i> 미완료</button></div>` : ''}</div>`).join('');
+            list.innerHTML = records.map(plan => {
+                let statusText = '';
+                let statusStyle = '';
+                let showButtons = false;
+                
+                if (plan.status === 'pending') {
+                    statusText = '<span style="color: var(--gray-400);">대기중</span>';
+                    showButtons = true;
+                } else if (plan.status === 'requested') {
+                    statusText = '<span style="color: var(--warning);"><i class="fas fa-clock"></i> 검사 대기</span>';
+                    showButtons = false;
+                } else if (plan.status === 'approved') {
+                    statusText = '<span style="color: var(--success);"><i class="fas fa-check-circle"></i> 승인 완료</span>';
+                    showButtons = false;
+                } else if (plan.status === 'failed') {
+                    statusText = '<span style="color: var(--danger);"><i class="fas fa-times"></i> 미완료</span>';
+                    showButtons = false;
+                } else {
+                    statusText = '<span style="color: var(--gray-400);">대기중</span>';
+                    showButtons = true;
+                }
+                
+                return `<div class="plan-item ${plan.status}">
+                    <div class="plan-header">
+                        <div>
+                            <div class="plan-title">${plan.book}</div>
+                            <div class="plan-subtitle">${plan.subject} · ${plan.planTime}분 계획</div>
+                        </div>
+                        ${statusText}
+                    </div>
+                    ${showButtons ? `<div class="plan-actions">
+                        <button class="plan-btn timer" onclick="startStopwatch('${plan.subject}', '${plan.book}')"><i class="fas fa-stopwatch"></i> 타이머</button>
+                        <button class="plan-btn complete" onclick="openRecordModal('${plan.subject}', '${plan.book}')"><i class="fas fa-hand-paper"></i> 직접입력</button>
+                        <button class="plan-btn fail" onclick="markFailed('${plan.subject}', '${plan.book}')"><i class="fas fa-times"></i> 미완료</button>
+                    </div>` : ''}
+                </div>`;
+            }).join('');
         }
 
         async function changeRecordDate(delta) {
@@ -901,12 +1208,12 @@
         async function saveRecord() {
             const time = parseInt(document.getElementById('recordTime').value) || 0;
             if (!time) { showToast('공부 시간을 입력해주세요'); return; }
-            const result = await apiCall({ action: 'saveRecord', floor: currentUser.floor, name: currentUser.name, date: formatDate(recordDate), subject: currentRecordPlan.subject, bookName: currentRecordPlan.book, startPage: document.getElementById('recordStartPage').value, endPage: document.getElementById('recordEndPage').value, actualTime: time, note: document.getElementById('recordNote').value });
+            const result = await apiCall({ action: 'requestCheck', floor: currentUser.floor, name: currentUser.name, date: formatDate(recordDate), subject: currentRecordPlan.subject, bookName: currentRecordPlan.book, startPage: document.getElementById('recordStartPage').value, endPage: document.getElementById('recordEndPage').value, actualTime: time, note: document.getElementById('recordNote').value });
             if (result.success) {
-                closeModal('recordModal'); await loadRecords(); updateHomeStats(); showToast('실천 기록이 저장되었습니다! 🎉');
+                closeModal('recordModal'); await loadRecords(); updateHomeStats(); showToast('검사 요청 완료! 선생님의 승인을 기다려주세요 📋');
                 document.getElementById('recordStartPage').value = ''; document.getElementById('recordEndPage').value = '';
                 document.getElementById('recordTime').value = ''; document.getElementById('recordNote').value = '';
-            } else { showToast('저장 실패'); }
+            } else { showToast('요청 실패'); }
         }
 
         async function markFailed(subject, book) {
