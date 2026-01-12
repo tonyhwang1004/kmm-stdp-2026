@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김엄마독서실 | 선생님 대시보드</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --primary-light: #2d5a8b;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: var(--gray-100);
+            min-height: 100vh;
+            color: var(--gray-800);
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        .logo i { font-size: 1.5rem; }
+        .header-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.2); }
+        .nav-btn.active { background: white; color: var(--primary); }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* 탭 네비게이션 */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            transition: all 0.2s;
+        }
+        .tab:hover { background: var(--gray-100); }
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* 대시보드 카드 */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: var(--accent); }
+        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .stat-icon.red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .stat-info h3 { font-size: 0.85rem; color: var(--gray-500); margin-bottom: 0.25rem; }
+        .stat-info .value { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        .stat-info .change { font-size: 0.8rem; color: var(--success); }
+
+        /* 섹션 카드 */
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .card-title i { color: var(--accent); }
+
+        /* 학생 상태 테이블 */
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .student-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            background: var(--gray-50);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-600);
+            border-bottom: 2px solid var(--gray-200);
+        }
+        .student-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--gray-100);
+            font-size: 0.9rem;
+        }
+        .student-table tr:hover {
+            background: var(--gray-50);
+        }
+        .student-name {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-badge.complete { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .status-badge.pending { background: rgba(245, 158, 11, 0.1); color: var(--warning); }
+        .status-badge.none { background: var(--gray-100); color: var(--gray-500); }
+        .progress-mini {
+            width: 100px;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-mini-fill {
+            height: 100%;
+            background: var(--success);
+            border-radius: 4px;
+        }
+
+        /* 검사 요청 목록 */
+        .request-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--gray-50);
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            border-left: 4px solid var(--warning);
+        }
+        .request-info h4 {
+            font-size: 0.95rem;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+        .request-info p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+        .request-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-success { background: var(--success); color: white; }
+        .btn-success:hover { background: #059669; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
+
+        /* 층 선택 */
+        .floor-select {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .floor-btn {
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--gray-200);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .floor-btn:hover { border-color: var(--accent); }
+        .floor-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* 상벌점 관리 */
+        .point-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+        @media (max-width: 768px) {
+            .point-form { grid-template-columns: 1fr; }
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        /* 월간 리포트 */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+        @media (max-width: 768px) {
+            .report-grid { grid-template-columns: 1fr; }
+        }
+        .report-card {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .report-card h4 {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            margin-bottom: 0.5rem;
+        }
+        .report-card .value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* 로딩 */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-400);
+        }
+        .loading i { font-size: 2rem; animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* 토스트 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--gray-800);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* 탭 컨텐츠 */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* 그리드 레이아웃 */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        @media (max-width: 1024px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray-400);
+        }
+        .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>선생님 대시보드</span>
+            </div>
+            <div class="header-nav">
+                <div class="floor-select">
+                    <button class="floor-btn active" onclick="selectFloor('7층')">7층</button>
+                    <button class="floor-btn" onclick="selectFloor('8층')">8층</button>
+                    <button class="floor-btn" onclick="selectFloor('')">전체</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 탭 네비게이션 -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('dashboard')"><i class="fas fa-chart-pie"></i> 대시보드</button>
+            <button class="tab" onclick="showTab('approval')"><i class="fas fa-clipboard-check"></i> 검사 승인</button>
+            <button class="tab" onclick="showTab('students')"><i class="fas fa-users"></i> 학생 현황</button>
+            <button class="tab" onclick="showTab('points')"><i class="fas fa-star"></i> 상벌점</button>
+            <button class="tab" onclick="showTab('reports')"><i class="fas fa-file-alt"></i> 리포트</button>
+        </div>
+
+        <!-- 대시보드 탭 -->
+        <div class="tab-content active" id="dashboardTab">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                    <div class="stat-info">
+                        <h3>총 학생 수</h3>
+                        <div class="value" id="totalStudents">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i class="fas fa-calendar-check"></i></div>
+                    <div class="stat-info">
+                        <h3>오늘 계획</h3>
+                        <div class="value" id="todayPlans">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i class="fas fa-check-circle"></i></div>
+                    <div class="stat-info">
+                        <h3>완료</h3>
+                        <div class="value" id="todayComplete">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon red"><i class="fas fa-clock"></i></div>
+                    <div class="stat-info">
+                        <h3>검사 대기</h3>
+                        <div class="value" id="pendingCount">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-clock"></i> 검사 대기 목록</div>
+                        <button class="btn btn-primary" onclick="showTab('approval')">전체 보기</button>
+                    </div>
+                    <div id="pendingPreview">
+                        <div class="loading"><i class="fas fa-spinner"></i></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title"><i class="fas fa-trophy"></i> 오늘 실천율 TOP 5</div>
+                    </div>
+                    <div id="topStudents">
+                        <div class="loading"><i class="fas fa-spinner"></i></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-users"></i> 학생별 오늘 현황</div>
+                    <span id="currentDate" style="color: var(--gray-500); font-size: 0.9rem;"></span>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="student-table" id="studentStatusTable">
+                        <thead>
+                            <tr>
+                                <th>이름</th>
+                                <th>계획</th>
+                                <th>완료</th>
+                                <th>대기</th>
+                                <th>실천율</th>
+                                <th>상태</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentStatusBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 검사 승인 탭 -->
+        <div class="tab-content" id="approvalTab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-clipboard-check"></i> 검사 요청 목록</div>
+                    <button class="btn btn-secondary" onclick="loadPendingRequests()"><i class="fas fa-sync"></i> 새로고침</button>
+                </div>
+                <div id="pendingList">
+                    <div class="loading"><i class="fas fa-spinner"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 학생 현황 탭 -->
+        <div class="tab-content" id="studentsTab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-users"></i> 전체 학생 현황</div>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="date" id="statusDate" onchange="loadStudentStatus()">
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="student-table">
+                        <thead>
+                            <tr>
+                                <th>층</th>
+                                <th>이름</th>
+                                <th>계획</th>
+                                <th>완료</th>
+                                <th>실천율</th>
+                                <th>총 공부시간</th>
+                                <th>상점</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allStudentsBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 상벌점 탭 -->
+        <div class="tab-content" id="pointsTab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-star"></i> 상벌점 부여</div>
+                </div>
+                <div class="point-form">
+                    <div class="form-group">
+                        <label>학생</label>
+                        <select id="pointStudent">
+                            <option value="">학생 선택</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>점수</label>
+                        <select id="pointScore">
+                            <option value="1">+1 (상점)</option>
+                            <option value="2">+2 (상점)</option>
+                            <option value="3">+3 (상점)</option>
+                            <option value="5">+5 (상점)</option>
+                            <option value="-1">-1 (벌점)</option>
+                            <option value="-2">-2 (벌점)</option>
+                            <option value="-3">-3 (벌점)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>사유</label>
+                        <input type="text" id="pointReason" placeholder="예: 주간 랭킹 1위">
+                    </div>
+                    <button class="btn btn-primary" onclick="addPoint()">부여</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-history"></i> 상벌점 내역</div>
+                </div>
+                <div id="pointHistory">
+                    <div class="loading"><i class="fas fa-spinner"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 리포트 탭 -->
+        <div class="tab-content" id="reportsTab">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-file-alt"></i> 월간 리포트 생성</div>
+                </div>
+                <div style="display: flex; gap: 1rem; align-items: end; flex-wrap: wrap;">
+                    <div class="form-group">
+                        <label>학생</label>
+                        <select id="reportStudent">
+                            <option value="">학생 선택</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>년도</label>
+                        <select id="reportYear">
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>월</label>
+                        <select id="reportMonth">
+                            <option value="1">1월</option>
+                            <option value="2">2월</option>
+                            <option value="3">3월</option>
+                            <option value="4">4월</option>
+                            <option value="5">5월</option>
+                            <option value="6">6월</option>
+                            <option value="7">7월</option>
+                            <option value="8">8월</option>
+                            <option value="9">9월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="generateReport()"><i class="fas fa-file-alt"></i> 리포트 생성</button>
+                </div>
+            </div>
+
+            <div class="card" id="reportResult" style="display: none;">
+                <div class="card-header">
+                    <div class="card-title"><i class="fas fa-chart-bar"></i> <span id="reportTitle">월간 리포트</span></div>
+                    <button class="btn btn-secondary" onclick="copyReport()"><i class="fas fa-copy"></i> 복사</button>
+                </div>
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h4>총 계획</h4>
+                        <div class="value" id="rptPlans">0</div>
+                    </div>
+                    <div class="report-card">
+                        <h4>완료</h4>
+                        <div class="value" id="rptComplete">0</div>
+                    </div>
+                    <div class="report-card">
+                        <h4>실천율</h4>
+                        <div class="value" id="rptRate">0%</div>
+                    </div>
+                    <div class="report-card">
+                        <h4>총 공부시간</h4>
+                        <div class="value" id="rptTime">0h</div>
+                    </div>
+                </div>
+                <div id="reportDetail" style="margin-top: 1.5rem; padding: 1rem; background: var(--gray-50); border-radius: 10px; white-space: pre-line; font-size: 0.9rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwGFbsj8FgFIuF-iFkJ4ekyS76MWQf9UrUysJ-Fs12vuVByJwenoYRgOJeOZiPOa6gzkg/exec';
+        
+        let currentFloor = '7층';
+        let allStudents = [];
+
+        async function apiCall(data) {
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(data)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('API Error:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // 층 선택
+        function selectFloor(floor) {
+            currentFloor = floor;
+            document.querySelectorAll('.floor-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            loadDashboard();
+        }
+
+        // 탭 전환
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId + 'Tab').classList.add('active');
+
+            if (tabId === 'approval') loadPendingRequests();
+            if (tabId === 'students') loadStudentStatus();
+            if (tabId === 'points') loadPointsTab();
+            if (tabId === 'reports') loadReportsTab();
+        }
+
+        // 대시보드 로드
+        async function loadDashboard() {
+            document.getElementById('currentDate').textContent = 
+                new Date().toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+
+            const result = await apiCall({ action: 'getDashboard', floor: currentFloor });
+            
+            if (result.success) {
+                const d = result.dashboard;
+                document.getElementById('totalStudents').textContent = d.totalStudents;
+                document.getElementById('todayPlans').textContent = d.totalPlans;
+                document.getElementById('todayComplete').textContent = d.completedPlans;
+                document.getElementById('pendingCount').textContent = d.pendingRequests;
+
+                renderStudentStatus(d.studentStatus);
+            }
+
+            loadPendingPreview();
+            loadTopStudents();
+        }
+
+        function renderStudentStatus(students) {
+            const tbody = document.getElementById('studentStatusBody');
+            
+            if (!students || students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="empty-state">데이터가 없습니다</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = students.map(s => {
+                const rate = s.planned > 0 ? Math.round(s.completed / s.planned * 100) : 0;
+                let statusClass = 'none';
+                let statusText = '미등록';
+                
+                if (s.planned > 0) {
+                    if (rate >= 80) { statusClass = 'complete'; statusText = '우수'; }
+                    else if (s.pending > 0) { statusClass = 'pending'; statusText = '검사대기'; }
+                    else { statusClass = 'none'; statusText = '진행중'; }
+                }
+
+                return `<tr>
+                    <td class="student-name">${s.name}</td>
+                    <td>${s.planned}</td>
+                    <td>${s.completed}</td>
+                    <td>${s.pending}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <div class="progress-mini">
+                                <div class="progress-mini-fill" style="width: ${rate}%"></div>
+                            </div>
+                            <span>${rate}%</span>
+                        </div>
+                    </td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                </tr>`;
+            }).join('');
+        }
+
+        // 검사 대기 미리보기
+        async function loadPendingPreview() {
+            const result = await apiCall({ action: 'getPendingRequests', floor: currentFloor });
+            const container = document.getElementById('pendingPreview');
+            
+            if (result.success && result.requests.length > 0) {
+                const preview = result.requests.slice(0, 3);
+                container.innerHTML = preview.map(r => `
+                    <div class="request-item">
+                        <div class="request-info">
+                            <h4>${r.name} - ${r.book}</h4>
+                            <p>${r.subject} · p.${r.startPage || '?'}~${r.endPage || '?'} · ${r.actualTime}분</p>
+                        </div>
+                        <div class="request-actions">
+                            <button class="btn btn-success" onclick="quickApprove(${r.row})">승인</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>대기 중인 요청이 없습니다</p></div>';
+            }
+        }
+
+        // TOP 5 학생
+        async function loadTopStudents() {
+            const result = await apiCall({ action: 'getAllStudentsStatus', floor: currentFloor, date: formatDate(new Date()) });
+            const container = document.getElementById('topStudents');
+            
+            if (result.success && result.students.length > 0) {
+                const sorted = result.students
+                    .filter(s => s.total > 0)
+                    .sort((a, b) => b.rate - a.rate)
+                    .slice(0, 5);
+
+                if (sorted.length > 0) {
+                    container.innerHTML = sorted.map((s, i) => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; ${i < sorted.length - 1 ? 'border-bottom: 1px solid var(--gray-100);' : ''}">
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <span style="width: 24px; height: 24px; background: ${i < 3 ? ['#fbbf24', '#9ca3af', '#f97316'][i] : 'var(--gray-200)'}; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; color: ${i < 3 ? 'white' : 'var(--gray-600)'};">${i + 1}</span>
+                                <span class="student-name">${s.name}</span>
+                            </div>
+                            <span style="font-weight: 600; color: var(--success);">${s.rate}%</span>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>아직 데이터가 없습니다</p></div>';
+                }
+            } else {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-trophy"></i><p>데이터를 불러올 수 없습니다</p></div>';
+            }
+        }
+
+        // 검사 요청 목록 전체
+        async function loadPendingRequests() {
+            const result = await apiCall({ action: 'getPendingRequests', floor: currentFloor });
+            const container = document.getElementById('pendingList');
+            
+            if (result.success && result.requests.length > 0) {
+                container.innerHTML = result.requests.map(r => `
+                    <div class="request-item" id="request-${r.row}">
+                        <div class="request-info">
+                            <h4>${r.floor} ${r.name} - [${r.subject}] ${r.book}</h4>
+                            <p>📅 ${r.date} · 📖 p.${r.startPage || '?'}~${r.endPage || '?'} · ⏱️ ${r.actualTime}분 ${r.note ? '· 📝 ' + r.note : ''}</p>
+                            <p style="font-size: 0.75rem; color: var(--gray-400);">요청시간: ${r.requestTime}</p>
+                        </div>
+                        <div class="request-actions">
+                            <button class="btn btn-success" onclick="approveRequest(${r.row})"><i class="fas fa-check"></i> 승인</button>
+                            <button class="btn btn-danger" onclick="rejectRequest(${r.row})"><i class="fas fa-times"></i> 반려</button>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>대기 중인 요청이 없습니다 🎉</p></div>';
+            }
+        }
+
+        async function quickApprove(row) {
+            await approveRequest(row);
+            loadPendingPreview();
+        }
+
+        async function approveRequest(row) {
+            const result = await apiCall({ action: 'approveRecord', row: row });
+            if (result.success) {
+                showToast('✅ 승인되었습니다!');
+                document.getElementById(`request-${row}`)?.remove();
+                loadDashboard();
+            } else {
+                showToast('❌ 승인 실패');
+            }
+        }
+
+        async function rejectRequest(row) {
+            if (!confirm('이 요청을 반려하시겠습니까?')) return;
+            
+            const result = await apiCall({ action: 'rejectRecord', row: row });
+            if (result.success) {
+                showToast('반려되었습니다');
+                document.getElementById(`request-${row}`)?.remove();
+            }
+        }
+
+        // 학생 현황
+        async function loadStudentStatus() {
+            const dateInput = document.getElementById('statusDate');
+            if (!dateInput.value) dateInput.value = formatDate(new Date());
+            
+            const result = await apiCall({ action: 'getAllStudentsStatus', floor: currentFloor, date: dateInput.value });
+            const tbody = document.getElementById('allStudentsBody');
+            
+            if (result.success && result.students.length > 0) {
+                tbody.innerHTML = result.students.map(s => `
+                    <tr>
+                        <td>${currentFloor || '전체'}</td>
+                        <td class="student-name">${s.name}</td>
+                        <td>${s.total}</td>
+                        <td>${s.completed}</td>
+                        <td>${s.rate}%</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                `).join('');
+            } else {
+                tbody.innerHTML = '<tr><td colspan="7" class="empty-state">데이터가 없습니다</td></tr>';
+            }
+        }
+
+        // 상벌점 탭
+        async function loadPointsTab() {
+            // 학생 목록 로드
+            await loadAllStudents();
+            
+            const select = document.getElementById('pointStudent');
+            select.innerHTML = '<option value="">학생 선택</option>';
+            allStudents.forEach(s => {
+                select.innerHTML += `<option value="${s.floor}|${s.name}">[${s.floor}] ${s.name}</option>`;
+            });
+        }
+
+        async function loadAllStudents() {
+            const result = await apiCall({ action: 'getAllStudentsForReport' });
+            if (result.success) {
+                allStudents = result.students;
+            }
+        }
+
+        async function addPoint() {
+            const studentVal = document.getElementById('pointStudent').value;
+            if (!studentVal) { showToast('학생을 선택해주세요'); return; }
+            
+            const [floor, name] = studentVal.split('|');
+            const score = document.getElementById('pointScore').value;
+            const reason = document.getElementById('pointReason').value;
+            
+            if (!reason) { showToast('사유를 입력해주세요'); return; }
+            
+            const result = await apiCall({
+                action: 'addPoint',
+                floor: floor,
+                name: name,
+                score: parseInt(score),
+                reason: reason,
+                giver: '선생님'
+            });
+            
+            if (result.success) {
+                showToast('✅ 상벌점이 부여되었습니다');
+                document.getElementById('pointReason').value = '';
+            }
+        }
+
+        // 리포트 탭
+        async function loadReportsTab() {
+            await loadAllStudents();
+            
+            const select = document.getElementById('reportStudent');
+            select.innerHTML = '<option value="">학생 선택</option>';
+            allStudents.forEach(s => {
+                select.innerHTML += `<option value="${s.floor}|${s.name}">[${s.floor}] ${s.name}</option>`;
+            });
+
+            // 현재 월 선택
+            const now = new Date();
+            document.getElementById('reportYear').value = now.getFullYear();
+            document.getElementById('reportMonth').value = now.getMonth() + 1;
+        }
+
+        async function generateReport() {
+            const studentVal = document.getElementById('reportStudent').value;
+            if (!studentVal) { showToast('학생을 선택해주세요'); return; }
+            
+            const [floor, name] = studentVal.split('|');
+            const year = document.getElementById('reportYear').value;
+            const month = document.getElementById('reportMonth').value;
+            
+            const result = await apiCall({
+                action: 'getMonthlyReport',
+                floor: floor,
+                name: name,
+                year: parseInt(year),
+                month: parseInt(month)
+            });
+            
+            if (result.success) {
+                const r = result.report;
+                document.getElementById('reportResult').style.display = 'block';
+                document.getElementById('reportTitle').textContent = `${name}님의 ${year}년 ${month}월 리포트`;
+                document.getElementById('rptPlans').textContent = r.stats.totalPlans;
+                document.getElementById('rptComplete').textContent = r.stats.completed;
+                document.getElementById('rptRate').textContent = r.stats.rate + '%';
+                document.getElementById('rptTime').textContent = r.stats.totalTimeHours + 'h';
+                
+                // 상세 내용
+                let detail = `📊 ${year}년 ${month}월 학습 리포트\n`;
+                detail += `━━━━━━━━━━━━━━━━━━━\n`;
+                detail += `📚 총 계획: ${r.stats.totalPlans}개\n`;
+                detail += `✅ 완료: ${r.stats.completed}개\n`;
+                detail += `📈 실천율: ${r.stats.rate}%\n`;
+                detail += `⏱️ 총 공부시간: ${r.stats.totalTimeHours}시간\n\n`;
+                
+                if (Object.keys(r.subjectTime).length > 0) {
+                    detail += `📖 과목별 공부시간:\n`;
+                    Object.entries(r.subjectTime).forEach(([subject, time]) => {
+                        detail += `  • ${subject}: ${(time / 60).toFixed(1)}시간\n`;
+                    });
+                }
+                
+                document.getElementById('reportDetail').textContent = detail;
+            }
+        }
+
+        function copyReport() {
+            const detail = document.getElementById('reportDetail').textContent;
+            navigator.clipboard.writeText(detail).then(() => {
+                showToast('📋 클립보드에 복사되었습니다');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('statusDate').value = formatDate(new Date());
+            loadDashboard();
+        });
+    </script>
+</body>
+</html>
