@@ -403,6 +403,29 @@
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast.success { background: #10b981; }
+
+        /* 캡처용 헤더 */
+        .capture-header {
+            display: none;
+            background: linear-gradient(135deg, #1e3a5f, #2d5a8b);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .capture-header.visible { display: block; }
+        .capture-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .capture-info {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .capture-mode .plan-table {
+            border-radius: 0 0 10px 10px;
+        }
     </style>
 </head>
 <body>
@@ -444,11 +467,18 @@
             <button class="week-nav" onclick="changeWeek(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
 
-        <div class="table-wrapper" id="captureArea">
-            <table class="plan-table">
+        <div class="table-wrapper">
+            <div id="captureArea">
+                <!-- 캡처용 헤더 (평소 숨김) -->
+                <div class="capture-header" id="captureHeader">
+                    <div class="capture-title">📚 김엄마독서실 주간계획표</div>
+                    <div class="capture-info" id="captureInfo">학생 · 층 · 주차</div>
+                </div>
+                <table class="plan-table">
                 <thead id="tableHead"></thead>
                 <tbody id="tableBody"></tbody>
-            </table>
+                </table>
+            </div>
         </div>
 
         <div class="bottom-bar">
@@ -877,18 +907,57 @@
             }
         }
 
-        // 공유
+        // 공유 - 전체 과목 캡처
         async function captureShare() {
             try {
-                const canvas = await html2canvas(document.getElementById('captureArea'), {
-                    backgroundColor: '#fff',
-                    scale: 2
+                toast('📸 이미지 생성 중...');
+                
+                const captureArea = document.getElementById('captureArea');
+                const captureHeader = document.getElementById('captureHeader');
+                const wrapper = document.querySelector('.table-wrapper');
+                
+                // 캡처 헤더에 정보 설정
+                const dates = getWeekDates();
+                const m = dates[0].getMonth() + 1;
+                const w = Math.ceil(dates[0].getDate() / 7);
+                document.getElementById('captureInfo').textContent = 
+                    `${user.name} · ${user.floor} · ${m}월 ${w}주차 (${fmtKR(dates[0])}~${fmtKR(dates[6])})`;
+                
+                // 캡처 모드 활성화
+                captureHeader.classList.add('visible');
+                captureArea.classList.add('capture-mode');
+                
+                // 캡처를 위해 스크롤 영역 임시로 확장
+                const originalOverflow = wrapper.style.overflow;
+                const originalHeight = wrapper.style.height;
+                
+                wrapper.style.overflow = 'visible';
+                wrapper.style.height = 'auto';
+                
+                // 약간 대기 후 캡처
+                await new Promise(r => setTimeout(r, 150));
+                
+                const canvas = await html2canvas(captureArea, {
+                    backgroundColor: '#ffffff',
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    scrollX: 0,
+                    scrollY: 0,
+                    windowWidth: captureArea.scrollWidth + 50,
+                    windowHeight: captureArea.scrollHeight + 50
                 });
+                
+                // 원래 스타일로 복구
+                captureHeader.classList.remove('visible');
+                captureArea.classList.remove('capture-mode');
+                wrapper.style.overflow = originalOverflow;
+                wrapper.style.height = originalHeight;
                 
                 canvas.toBlob(async (blob) => {
                     try {
                         await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-                        toast('📋 복사됨! 카톡에 붙여넣기', true);
+                        toast('📋 전체 계획표 복사됨! 카톡에 붙여넣기', true);
                     } catch {
                         const url = URL.createObjectURL(blob);
                         const a = document.createElement('a');
@@ -898,7 +967,8 @@
                         toast('📥 저장됨', true);
                     }
                 }, 'image/png');
-            } catch {
+            } catch (e) {
+                console.error(e);
                 toast('캡처 실패');
             }
         }
