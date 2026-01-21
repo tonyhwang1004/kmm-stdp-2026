@@ -100,8 +100,8 @@
         
         .check-header {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
+            gap: 12px;
             cursor: pointer;
         }
         .check-info { flex: 1; }
@@ -126,25 +126,33 @@
             color: #666;
             margin-top: 5px;
         }
-        .check-range {
-            display: inline-block;
+        
+        /* 페이지 범위 박스 - 크고 눈에 띄게 */
+        .check-page-box {
             background: linear-gradient(135deg, #fef3c7, #fde68a);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
+            border: 3px solid #f59e0b;
+            border-radius: 12px;
+            padding: 12px 18px;
+            text-align: center;
+            min-width: 130px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        .check-page-box .page-label {
+            font-size: 0.7rem;
             color: #92400e;
-            margin-top: 8px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            text-transform: uppercase;
         }
-        .check-time {
-            font-size: 0.8rem;
-            color: #888;
-            margin-top: 5px;
+        .check-page-box .page-range {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #92400e;
         }
-        .check-time i { margin-right: 4px; }
         
         .check-meta {
             text-align: right;
+            min-width: 55px;
         }
         .check-duration {
             font-size: 1.3rem;
@@ -158,13 +166,8 @@
             margin-top: 5px;
         }
         .has-photo {
-            display: inline-block;
-            background: #dcfce7;
-            color: #166534;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            margin-top: 5px;
+            font-size: 1rem;
+            margin-left: 5px;
         }
         
         .check-detail {
@@ -408,22 +411,24 @@
             }
             
             container.innerHTML = waiting.map((r, idx) => {
-                const range = r.bookType === 'lecture' 
+                const isLecture = r.bookType === 'lecture';
+                const rangeText = isLecture 
                     ? `${r.startPage || '?'}강 ~ ${r.endPage || '?'}강`
                     : `p.${r.startPage || '?'} ~ p.${r.endPage || '?'}`;
-                const hasPhoto = r.photoData ? '<span class="has-photo">📷 사진 첨부</span>' : '';
+                const hasPhoto = r.photoData ? '<span class="has-photo">📷</span>' : '';
                 const submittedTime = r.submittedAt ? new Date(r.submittedAt).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }) : '';
                 
                 return `
                     <div class="check-card" id="card-${idx}" onclick="toggleCard(${idx})">
                         <div class="check-header">
                             <div class="check-info">
-                                <div class="check-name">${r.name} <span style="font-size:0.8rem;color:#888;">(${r.floor})</span></div>
+                                <div class="check-name">${r.name} <span style="font-size:0.8rem;color:#888;">(${r.floor})</span> ${hasPhoto}</div>
                                 <span class="check-subject">${r.subject}</span>
                                 <div class="check-book">📚 ${r.bookName || r.book}</div>
-                                <div class="check-range">📖 ${range}</div>
-                                ${hasPhoto}
-                                <div class="check-time"><i class="far fa-clock"></i> ${r.actualTime || 0}분 학습</div>
+                            </div>
+                            <div class="check-page-box">
+                                <div class="page-label">${isLecture ? '강의' : '페이지'}</div>
+                                <div class="page-range">${rangeText}</div>
                             </div>
                             <div class="check-meta">
                                 <div class="check-duration">${r.actualTime || 0}<span>분</span></div>
