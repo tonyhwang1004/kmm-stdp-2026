@@ -11,6 +11,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: #f0f2f5;
             min-height: 100vh;
+            padding-bottom: 80px;
         }
 
         /* 헤더 */
@@ -57,25 +58,84 @@
         /* 컨테이너 */
         .container { padding: 16px; max-width: 600px; margin: 0 auto; }
 
-        /* 타이틀 */
-        .section-title {
+        /* 통계 카드 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        .stat-value.blue { color: #3b82f6; }
+        .stat-value.orange { color: #f59e0b; }
+        .stat-value.green { color: #10b981; }
+        .stat-value.red { color: #ef4444; }
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* 탭 */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            font-size: 1rem;
-            font-weight: 700;
-            color: #333;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
         }
-        .count-badge {
+        .tab-btn.waiting {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .tab-btn.waiting.active {
+            background: #f59e0b;
+            color: white;
+        }
+        .tab-btn.approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .tab-btn.approved.active {
+            background: #10b981;
+            color: white;
+        }
+        .tab-btn.failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .tab-btn.failed.active {
             background: #ef4444;
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
         }
-        .count-badge.zero { background: #10b981; }
+        .tab-badge {
+            background: rgba(0,0,0,0.15);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+        }
 
         /* 카드 리스트 */
         .card-list { display: flex; flex-direction: column; gap: 16px; }
@@ -87,6 +147,9 @@
             overflow: hidden;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
+        .check-card.waiting-card { border-left: 5px solid #f59e0b; }
+        .check-card.approved-card { border-left: 5px solid #10b981; }
+        .check-card.failed-card { border-left: 5px solid #ef4444; }
         
         .card-header {
             background: #f8fafc;
@@ -118,6 +181,7 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 12px;
+            flex-wrap: wrap;
         }
         .subject-badge {
             display: inline-block;
@@ -132,6 +196,7 @@
             font-size: 0.95rem;
             color: #555;
             flex: 1;
+            min-width: 100px;
         }
         .time-badge {
             background: #f0f9ff;
@@ -142,7 +207,7 @@
             font-size: 0.9rem;
         }
 
-        /* 페이지 박스 - 핵심! 크고 눈에 띄게 */
+        /* 페이지 박스 */
         .page-box {
             background: linear-gradient(135deg, #fef9c3, #fde047);
             border: 3px solid #eab308;
@@ -151,17 +216,45 @@
             text-align: center;
             margin: 14px 0;
         }
+        .page-box.lecture {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            border-color: #6366f1;
+        }
         .page-label {
             font-size: 0.8rem;
             color: #854d0e;
             font-weight: 600;
             margin-bottom: 6px;
         }
+        .page-box.lecture .page-label { color: #4338ca; }
         .page-range {
             font-size: 1.6rem;
             font-weight: 800;
             color: #713f12;
             letter-spacing: 1px;
+        }
+        .page-box.lecture .page-range { color: #3730a3; }
+
+        /* 사진 버튼 */
+        .photo-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            border-radius: 10px;
+            color: #6b7280;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+        .photo-btn:hover { background: #e5e7eb; }
+        .photo-btn.has-photo {
+            background: #dbeafe;
+            border: 2px solid #3b82f6;
+            color: #1d4ed8;
         }
 
         /* 버튼 */
@@ -194,6 +287,23 @@
         .btn-reject {
             background: linear-gradient(135deg, #f87171, #ef4444);
             color: white;
+        }
+
+        /* 상태 뱃지 */
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .status-badge.approved {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .status-badge.failed {
+            background: #fee2e2;
+            color: #991b1b;
         }
 
         /* 빈 상태 */
@@ -249,8 +359,60 @@
             font-size: 0.8rem;
             color: #999;
             margin-top: 20px;
-            padding-bottom: 30px;
         }
+
+        /* 사진 모달 */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.show { display: flex; }
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+        }
+        .modal-header {
+            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h3 { font-size: 1.1rem; color: #1e3a5f; }
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: #f3f4f6;
+            color: #666;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .modal-body { padding: 16px; }
+        .modal-body img {
+            width: 100%;
+            border-radius: 12px;
+        }
+        .no-photo {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        .no-photo i { font-size: 3rem; color: #ddd; margin-bottom: 12px; }
     </style>
 </head>
 <body>
@@ -269,12 +431,46 @@
     </div>
 
     <div class="container">
-        <div class="section-title">
-            <i class="fas fa-clipboard-check"></i>
-            검사 대기
-            <span class="count-badge" id="countBadge">0</span>
+        <!-- 통계 카드 -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value blue" id="statTotal">0</div>
+                <div class="stat-label">오늘 전체</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value orange" id="statWaiting">0</div>
+                <div class="stat-label">검사 대기</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value green" id="statApproved">0</div>
+                <div class="stat-label">승인</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value red" id="statFailed">0</div>
+                <div class="stat-label">실패</div>
+            </div>
+        </div>
+
+        <!-- 탭 -->
+        <div class="tabs">
+            <button class="tab-btn waiting active" onclick="switchTab('waiting')">
+                <i class="fas fa-clock"></i>
+                대기
+                <span class="tab-badge" id="tabWaiting">0</span>
+            </button>
+            <button class="tab-btn approved" onclick="switchTab('approved')">
+                <i class="fas fa-check"></i>
+                승인
+                <span class="tab-badge" id="tabApproved">0</span>
+            </button>
+            <button class="tab-btn failed" onclick="switchTab('failed')">
+                <i class="fas fa-times"></i>
+                실패
+                <span class="tab-badge" id="tabFailed">0</span>
+            </button>
         </div>
         
+        <!-- 카드 리스트 -->
         <div class="card-list" id="cardList">
             <div class="loading">
                 <i class="fas fa-spinner fa-spin"></i>
@@ -285,12 +481,30 @@
         <div class="last-update" id="lastUpdate"></div>
     </div>
 
+    <!-- 사진 모달 -->
+    <div class="modal-overlay" id="photoModal" onclick="closePhotoModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3>📸 인증 사진</h3>
+                <button class="modal-close" onclick="closePhotoModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="photoModalBody">
+            </div>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
 
     <script>
         const API = 'https://script.google.com/macros/s/AKfycbwGFbsj8FgFIuF-iFkJ4ekyS76MWQf9UrUysJ-Fs12vuVByJwenoYRgOJeOZiPOa6gzkg/exec';
         
-        let requests = [];
+        let allRecords = [];
+        let waitingList = [];
+        let approvedList = [];
+        let failedList = [];
+        let currentTab = 'waiting';
 
         // 페이지 로드시
         document.addEventListener('DOMContentLoaded', () => {
@@ -314,28 +528,56 @@
             }
         }
 
+        // 오늘 날짜
+        function getToday() {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
         // 데이터 로드
         async function loadData() {
             const btn = document.getElementById('refreshBtn');
             btn.classList.add('spinning');
             
             const floor = document.getElementById('floorSelect').value;
+            const today = getToday();
             
             try {
-                const res = await api({
+                // 모든 대기 요청 (날짜 무관)
+                const pendingRes = await api({
                     action: 'getPendingRequests',
                     floor: floor
                 });
                 
-                console.log('API 응답:', res);
+                // 오늘 기록 (승인/실패 포함)
+                const todayRes = await api({
+                    action: 'getTodayRecords',
+                    floor: floor,
+                    date: today
+                });
                 
-                if (res.success) {
-                    requests = res.requests || [];
-                    renderCards();
-                    updateTime();
-                } else {
-                    showError(res.error || '데이터 로드 실패');
-                }
+                console.log('Pending:', pendingRes);
+                console.log('Today:', todayRes);
+                
+                // 대기 목록 (날짜 상관없이)
+                waitingList = pendingRes.success ? (pendingRes.requests || []) : [];
+                
+                // 오늘 승인/실패 목록
+                const todayRecords = todayRes.success ? (todayRes.records || []) : [];
+                approvedList = todayRecords.filter(r => r.status === 'approved');
+                failedList = todayRecords.filter(r => r.status === 'failed');
+                
+                // 통계 업데이트
+                updateStats();
+                
+                // 현재 탭 렌더링
+                renderCurrentTab();
+                
+                updateTime();
+                
             } catch (err) {
                 console.error(err);
                 showError('네트워크 오류');
@@ -344,27 +586,87 @@
             btn.classList.remove('spinning');
         }
 
-        // 카드 렌더링
-        function renderCards() {
+        // 통계 업데이트
+        function updateStats() {
+            const total = waitingList.length + approvedList.length + failedList.length;
+            
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statWaiting').textContent = waitingList.length;
+            document.getElementById('statApproved').textContent = approvedList.length;
+            document.getElementById('statFailed').textContent = failedList.length;
+            
+            document.getElementById('tabWaiting').textContent = waitingList.length;
+            document.getElementById('tabApproved').textContent = approvedList.length;
+            document.getElementById('tabFailed').textContent = failedList.length;
+        }
+
+        // 탭 전환
+        function switchTab(tab) {
+            currentTab = tab;
+            
+            // 탭 버튼 스타일
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.tab-btn.${tab}`).classList.add('active');
+            
+            renderCurrentTab();
+        }
+
+        // 현재 탭 렌더링
+        function renderCurrentTab() {
             const container = document.getElementById('cardList');
-            const badge = document.getElementById('countBadge');
             
-            badge.textContent = requests.length;
-            badge.className = 'count-badge' + (requests.length === 0 ? ' zero' : '');
+            let list = [];
+            let cardClass = '';
+            let showActions = false;
             
-            if (requests.length === 0) {
+            switch(currentTab) {
+                case 'waiting':
+                    list = waitingList;
+                    cardClass = 'waiting-card';
+                    showActions = true;
+                    break;
+                case 'approved':
+                    list = approvedList;
+                    cardClass = 'approved-card';
+                    break;
+                case 'failed':
+                    list = failedList;
+                    cardClass = 'failed-card';
+                    break;
+            }
+            
+            if (list.length === 0) {
+                const emptyMsg = {
+                    'waiting': '검사 대기 중인 학생이 없습니다',
+                    'approved': '오늘 승인된 기록이 없습니다',
+                    'failed': '오늘 실패 처리된 기록이 없습니다'
+                };
+                const emptyIcon = {
+                    'waiting': 'fa-check-circle',
+                    'approved': 'fa-folder-open',
+                    'failed': 'fa-folder-open'
+                };
                 container.innerHTML = `
                     <div class="empty-state">
-                        <i class="fas fa-check-circle"></i>
-                        <p>검사 대기 중인 학생이 없습니다</p>
+                        <i class="fas ${emptyIcon[currentTab]}"></i>
+                        <p>${emptyMsg[currentTab]}</p>
                     </div>`;
                 return;
             }
             
-            container.innerHTML = requests.map((r, idx) => {
+            container.innerHTML = list.map((r, idx) => {
+                // bookType에 따른 범위 표시
+                const bookType = r.bookType || 'textbook';
+                const isLecture = bookType === 'lecture';
                 const startP = r.startPage || '?';
                 const endP = r.endPage || '?';
-                const pageText = `p.${startP} ~ p.${endP}`;
+                const pageText = isLecture 
+                    ? `${startP}강 ~ ${endP}강` 
+                    : `p.${startP} ~ p.${endP}`;
+                const pageLabel = isLecture ? '🎬 검사할 강의 범위' : '📖 검사할 페이지 범위';
+                const pageBoxClass = isLecture ? 'page-box lecture' : 'page-box';
                 
                 // 날짜 포맷
                 let dateDisplay = r.date || '';
@@ -373,8 +675,45 @@
                     dateDisplay = `${parts[1]}월 ${parts[2]}일`;
                 }
                 
+                // 시간
+                const time = r.actualTime || r.time || 0;
+                
+                // 사진 있는지 확인
+                const hasPhoto = r.photoData && r.photoData.length > 100;
+                
+                // 상태 뱃지 (승인/실패 탭)
+                let statusBadge = '';
+                if (currentTab === 'approved') {
+                    statusBadge = '<span class="status-badge approved">✅ 승인됨</span>';
+                } else if (currentTab === 'failed') {
+                    statusBadge = '<span class="status-badge failed">❌ 실패</span>';
+                }
+                
+                // 액션 버튼 (대기 탭만)
+                let actionButtons = '';
+                if (showActions) {
+                    actionButtons = `
+                        <div class="card-actions">
+                            <button class="action-btn btn-approve" onclick="approve(${r.row}, ${idx})">
+                                <i class="fas fa-check"></i> 승인
+                            </button>
+                            <button class="action-btn btn-reject" onclick="reject(${r.row}, ${idx})">
+                                <i class="fas fa-times"></i> 실패
+                            </button>
+                        </div>`;
+                }
+                
+                // 사진 버튼
+                let photoButton = '';
+                if (hasPhoto) {
+                    photoButton = `
+                        <div class="photo-btn has-photo" onclick="showPhoto(${idx})">
+                            <i class="fas fa-camera"></i> 인증 사진 보기
+                        </div>`;
+                }
+                
                 return `
-                <div class="check-card" id="card-${idx}">
+                <div class="check-card ${cardClass}" id="card-${idx}">
                     <div class="card-header">
                         <div>
                             <span class="student-name">${r.name}</span>
@@ -385,22 +724,17 @@
                     <div class="card-body">
                         <div class="subject-row">
                             <span class="subject-badge">${r.subject}</span>
-                            <span class="book-name">${r.book}</span>
-                            <span class="time-badge">${r.actualTime || 0}분</span>
+                            <span class="book-name">${r.book || r.bookName}</span>
+                            <span class="time-badge">${time}분</span>
                         </div>
-                        <div class="page-box">
-                            <div class="page-label">📖 검사할 페이지 범위</div>
+                        <div class="${pageBoxClass}">
+                            <div class="page-label">${pageLabel}</div>
                             <div class="page-range">${pageText}</div>
                         </div>
+                        ${photoButton}
+                        ${statusBadge ? `<div style="text-align:center;margin-top:10px;">${statusBadge}</div>` : ''}
                     </div>
-                    <div class="card-actions">
-                        <button class="action-btn btn-approve" onclick="approve(${r.row}, ${idx})">
-                            <i class="fas fa-check"></i> 승인
-                        </button>
-                        <button class="action-btn btn-reject" onclick="reject(${r.row}, ${idx})">
-                            <i class="fas fa-times"></i> 실패
-                        </button>
-                    </div>
+                    ${actionButtons}
                 </div>`;
             }).join('');
         }
@@ -449,6 +783,35 @@
             } else {
                 toast('오류: ' + (res.error || '처리 실패'), 'error');
                 btns.forEach(b => b.disabled = false);
+            }
+        }
+
+        // 사진 보기
+        function showPhoto(idx) {
+            let list = currentTab === 'waiting' ? waitingList : 
+                       currentTab === 'approved' ? approvedList : failedList;
+            const record = list[idx];
+            
+            const modal = document.getElementById('photoModal');
+            const body = document.getElementById('photoModalBody');
+            
+            if (record && record.photoData && record.photoData.length > 100) {
+                body.innerHTML = `<img src="${record.photoData}" alt="인증 사진">`;
+            } else {
+                body.innerHTML = `
+                    <div class="no-photo">
+                        <i class="fas fa-image"></i>
+                        <p>사진이 없습니다</p>
+                    </div>`;
+            }
+            
+            modal.classList.add('show');
+        }
+
+        // 사진 모달 닫기
+        function closePhotoModal(event) {
+            if (!event || event.target.id === 'photoModal') {
+                document.getElementById('photoModal').classList.remove('show');
             }
         }
 
