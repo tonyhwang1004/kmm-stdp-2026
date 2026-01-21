@@ -504,6 +504,7 @@
             border-bottom: 1px solid #e5e5e5;
         }
         .check-modal .check-item:last-child { border-bottom: none; }
+        .check-modal .check-item.warning { background: #fef3c7; margin: 0 -10px; padding: 8px 10px; border-radius: 6px; }
         .check-modal .check-item .subject { font-weight: 600; color: var(--primary); }
         .check-modal .check-item .time { font-family: monospace; color: var(--accent); font-weight: 600; }
         .check-modal .check-total { text-align: center; padding-top: 10px; font-size: 1.3rem; font-weight: 700; color: var(--primary); }
@@ -1030,21 +1031,23 @@
             
             if (timer.interval) { clearInterval(timer.interval); timer.interval = null; }
             
+            // 타이머 시간 또는 직접 입력한 시간 사용
             let elapsed = timer.elapsed || 0;
             if (elapsed === 0 && plan?.actualTime) elapsed = plan.actualTime * 60;
             
             const startPage = plan?.startPage || '';
             const endPage = plan?.endPage || '';
             
-            if (!startPage || !endPage) { toast('⚠️ 페이지/강의 범위를 입력해주세요', 'warning'); return; }
-            if (elapsed === 0) { toast('⚠️ 시간을 입력하거나 타이머를 사용해주세요', 'warning'); return; }
-            
+            // 완료 목록에 추가 (검증은 검사요청 시)
             const existing = completedToday.findIndex(c => c.key === key);
-            if (existing >= 0) completedToday[existing] = { key, subject, book, dateStr, elapsed, bookType, startPage, endPage };
-            else completedToday.push({ key, subject, book, dateStr, elapsed, bookType, startPage, endPage });
+            const data = { key, subject, book, dateStr, elapsed, bookType, startPage, endPage };
+            
+            if (existing >= 0) completedToday[existing] = data;
+            else completedToday.push(data);
             
             timers[key] = { state: 'idle', elapsed: elapsed, start: null, interval: null };
-            renderTable(); updateCheckBar(); toast('✅ 학습 완료! 검사 요청 버튼을 눌러주세요', 'success');
+            renderTable(); updateCheckBar(); 
+            toast('✔️ 완료! 검사 요청 버튼을 눌러주세요', 'success');
         }
 
         function handlePhoto(input) {
@@ -1069,15 +1072,43 @@
 
         function openCheckModal() {
             if (completedToday.length === 0) return;
-            let html = '', totalSec = 0;
+            
+            // 최신 plan 데이터로 업데이트
             completedToday.forEach(c => {
-                const range = c.bookType === 'lecture' ? `${c.startPage}강~${c.endPage}강` : `p.${c.startPage}~${c.endPage}`;
-                html += `<div class="check-item"><div><span class="subject">${c.subject}</span><span style="color:#888;font-size:0.8rem;"> · ${c.book}</span><div style="font-size:0.75rem;color:#888;">${range}</div></div><span class="time">${Math.ceil(c.elapsed/60)}분</span></div>`;
+                const plan = plans.find(p => p.date === c.dateStr && p.subject === c.subject && p.book === c.book);
+                if (plan) {
+                    c.startPage = c.startPage || plan.startPage || '';
+                    c.endPage = c.endPage || plan.endPage || '';
+                    if (c.elapsed === 0 && plan.actualTime) c.elapsed = plan.actualTime * 60;
+                }
+            });
+            
+            let html = '', totalSec = 0, hasWarning = false;
+            completedToday.forEach(c => {
+                const range = c.bookType === 'lecture' ? `${c.startPage || '?'}강~${c.endPage || '?'}강` : `p.${c.startPage || '?'}~${c.endPage || '?'}`;
+                const mins = Math.ceil(c.elapsed / 60);
+                const warning = (!c.startPage || !c.endPage || c.elapsed === 0);
+                if (warning) hasWarning = true;
+                
+                html += `<div class="check-item ${warning ? 'warning' : ''}">
+                    <div>
+                        <span class="subject">${c.subject}</span>
+                        <span style="color:#888;font-size:0.8rem;"> · ${c.book}</span>
+                        <div style="font-size:0.75rem;color:${warning ? '#f59e0b' : '#888'};">${range} ${warning ? '⚠️' : ''}</div>
+                    </div>
+                    <span class="time">${mins > 0 ? mins + '분' : '?분'}</span>
+                </div>`;
                 totalSec += c.elapsed;
             });
+            
             const totalMin = Math.ceil(totalSec / 60);
             const h = Math.floor(totalMin / 60), m = totalMin % 60;
             html += `<div class="check-total">총 ${h > 0 ? h + '시간 ' : ''}${m}분</div>`;
+            
+            if (hasWarning) {
+                html += `<div style="color:#f59e0b;font-size:0.8rem;text-align:center;margin-top:10px;">⚠️ 페이지/시간이 비어있는 항목이 있습니다</div>`;
+            }
+            
             document.getElementById('checkSummary').innerHTML = html;
             currentPhotoData = null;
             document.getElementById('photoPreview').innerHTML = '<i class="fas fa-camera"></i><span>터치하여 사진 촬영</span>';
@@ -1089,7 +1120,19 @@
             document.getElementById('checkModal').classList.remove('active');
             if (!confirm || completedToday.length === 0) return;
             for (const c of completedToday) {
-                await api({ action: 'requestCheck', floor: user.floor, name: user.name, date: c.dateStr, subject: c.subject, bookName: c.book, actualTime: Math.ceil(c.elapsed / 60), startPage: c.startPage, endPage: c.endPage, photoData: currentPhotoData });
+                await api({ 
+                    action: 'requestCheck', 
+                    floor: user.floor, 
+                    name: user.name, 
+                    date: c.dateStr, 
+                    subject: c.subject, 
+                    bookName: c.book, 
+                    actualTime: Math.ceil(c.elapsed / 60), 
+                    startPage: c.startPage, 
+                    endPage: c.endPage, 
+                    bookType: c.bookType,
+                    photoData: currentPhotoData 
+                });
             }
             completedToday = []; currentPhotoData = null;
             await loadPlans(); renderTable(); updateMood(); updateCheckBar();
