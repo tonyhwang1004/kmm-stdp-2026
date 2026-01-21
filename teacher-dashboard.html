@@ -1,51 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>김엄마독서실 | 선생님</title>
     <title>김엄마독서실 | 선생님 대시보드</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1e3a5f;
-            --primary-light: #2d5a8b;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
         html, body { 
             height: 100%; 
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--gray-100);
-            min-height: 100vh;
-            color: var(--gray-800);
             background: #f5f5f5;
         }
 
-        /* ========== 공통 헤더 ========== */
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             background: linear-gradient(135deg, #1e3a5f, #0f1f33);
             color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
@@ -54,20 +24,6 @@
             top: 0;
             z-index: 100;
         }
-        .logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .floor-tabs {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .floor-tab {
-            padding: 0.5rem 1rem;
-            background: rgba(255,255,255,0.15);
         .header h1 { font-size: 1.2rem; }
         .header-right { display: flex; gap: 10px; align-items: center; }
         .floor-select {
@@ -76,162 +32,53 @@
             border-radius: 8px;
             background: rgba(255,255,255,0.15);
             color: white;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .floor-tab.active {
-            background: white;
-            color: var(--primary);
-        }
-        .floor-tab .badge {
-            background: var(--danger);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            margin-left: 4px;
-        }
-        .floor-tab.active .badge {
-            background: var(--danger);
             font-size: 0.9rem;
         }
         .floor-select option { color: #333; }
         .refresh-btn {
-            width: 40px; height: 40px;
             padding: 8px 15px;
             background: rgba(255,255,255,0.15);
             border: none;
-            border-radius: 10px;
-            color: white;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-        .refresh-btn.spinning i {
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ========== PC 전용 스타일 ========== */
-        .pc-only { display: block; }
-        .mobile-only { display: none; }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 1.5rem;
-        }
-
-        /* PC 탭 */
-        .pc-tabs {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            background: white;
-            padding: 0.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .pc-tab {
-            padding: 0.75rem 1.25rem;
-            border: none;
-            background: transparent;
             border-radius: 8px;
             color: white;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--gray-500);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             gap: 5px;
         }
-        .pc-tab:hover { background: var(--gray-100); }
-        .pc-tab.active { background: var(--primary); color: white; }
         .refresh-btn:hover { background: rgba(255,255,255,0.25); }
 
-        .container { padding: 15px; max-width: 1200px; margin: 0 auto; }
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
 
-        /* 대시보드 그리드 */
-        .stats-grid {
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 20px;
         }
         .stat-card {
             background: white;
-            border-radius: 14px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        .stat-icon {
-            width: 50px; height: 50px;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
-        .stat-icon.blue { background: rgba(59,130,246,0.1); color: var(--accent); }
-        .stat-icon.green { background: rgba(16,185,129,0.1); color: var(--success); }
-        .stat-icon.orange { background: rgba(245,158,11,0.1); color: var(--warning); }
-        .stat-icon.red { background: rgba(239,68,68,0.1); color: var(--danger); }
-        .stat-info h3 { font-size: 0.8rem; color: var(--gray-500); }
-        .stat-info .value { font-size: 1.75rem; font-weight: 700; color: var(--primary); }
-        .stat-card .value { font-size: 2rem; font-weight: 700; color: #1e3a5f; }
-        .stat-card .label { font-size: 0.8rem; color: #888; margin-top: 5px; }
+        .stat-card .value { font-size: 1.8rem; font-weight: 700; color: #1e3a5f; }
+        .stat-card .label { font-size: 0.75rem; color: #888; margin-top: 3px; }
         .stat-card.waiting .value { color: #f59e0b; }
         .stat-card.approved .value { color: #10b981; }
         .stat-card.failed .value { color: #ef4444; }
 
-        /* 카드 */
-        .card {
-            background: white;
-            border-radius: 14px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .card-title {
-            font-size: 1rem;
         .section { margin-bottom: 25px; }
         .section-title {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primary);
             color: #1e3a5f;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
             gap: 8px;
         }
-        .card-title i { color: var(--accent); }
-
-        /* 2열 그리드 */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
         .section-title .badge {
             background: #f59e0b;
             color: white;
@@ -240,9 +87,7 @@
             font-size: 0.8rem;
         }
 
-        /* 검사 아이템 */
-        .check-item {
-        .check-list { display: flex; flex-direction: column; gap: 10px; }
+        .check-list { display: flex; flex-direction: column; gap: 12px; }
         
         .check-card {
             background: white;
@@ -251,28 +96,12 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             border-left: 4px solid #f59e0b;
         }
-        .check-card.expanded { border-color: #3b82f6; }
         
         .check-header {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1rem;
-            background: var(--gray-50);
-            border-radius: 10px;
-            margin-bottom: 0.75rem;
-            border-left: 4px solid var(--warning);
+            gap: 12px;
         }
-        .check-item.done {
-            border-left-color: var(--success);
-            opacity: 0.6;
-            align-items: flex-start;
-            cursor: pointer;
-        }
-        .check-info h4 {
-            font-size: 0.95rem;
-            color: var(--gray-800);
-            margin-bottom: 0.25rem;
         .check-info { flex: 1; }
         .check-name {
             font-weight: 700;
@@ -280,9 +109,6 @@
             color: #1e3a5f;
             margin-bottom: 5px;
         }
-        .check-info p {
-            font-size: 0.8rem;
-            color: var(--gray-500);
         .check-subject {
             display: inline-block;
             padding: 3px 10px;
@@ -291,121 +117,62 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
-            margin-right: 5px;
         }
-        .check-actions {
-            display: flex;
-            gap: 0.5rem;
         .check-book {
             font-size: 0.85rem;
             color: #666;
             margin-top: 5px;
         }
-        .btn {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 8px;
-        .check-range {
-            display: inline-block;
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            color: #92400e;
-            margin-top: 8px;
-        }
-        .btn-success { background: var(--success); color: white; }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-secondary { background: var(--gray-200); color: var(--gray-700); }
-        .btn-primary { background: var(--accent); color: white; }
-
-        /* 테이블 */
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .data-table th {
-            text-align: left;
-            padding: 0.75rem;
-            background: var(--gray-50);
-        .check-time {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--gray-600);
-            color: #888;
-            margin-top: 5px;
-        }
-        .data-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--gray-100);
-            font-size: 0.85rem;
-        .check-time i { margin-right: 4px; }
         
-        .check-meta {
-            text-align: right;
+        /* 페이지 범위 박스 - 크고 눈에 띄게 */
+        .check-page-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border: 3px solid #f59e0b;
+            border-radius: 12px;
+            padding: 12px 16px;
+            text-align: center;
+            min-width: 140px;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
         }
-        .data-table tr:hover { background: var(--gray-50); }
-        .progress-bar {
-            width: 80px; height: 6px;
-            background: var(--gray-200);
-            border-radius: 3px;
-            overflow: hidden;
-        .check-duration {
-            font-size: 1.3rem;
+        .check-page-box .page-label {
+            font-size: 0.7rem;
+            color: #92400e;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .check-page-box .page-range {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #92400e;
+        }
+        
+        .check-time-box {
+            text-align: center;
+            min-width: 50px;
+        }
+        .check-time-box .time-value {
+            font-size: 1.5rem;
             font-weight: 700;
             color: #3b82f6;
         }
-        .progress-fill {
-            height: 100%;
-            background: var(--success);
-        .check-duration span { font-size: 0.8rem; color: #888; }
-        .check-submitted {
-            font-size: 0.75rem;
-            color: #999;
-            margin-top: 5px;
-        }
-        .status-badge {
-        .has-photo {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            border-radius: 12px;
-            background: #dcfce7;
-            color: #166534;
-            padding: 2px 8px;
-            border-radius: 4px;
+        .check-time-box .time-label {
             font-size: 0.7rem;
-            margin-top: 5px;
+            color: #888;
         }
-        
-        .check-detail {
-            display: none;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #e5e5e5;
-        }
-        .check-card.expanded .check-detail { display: block; }
-        
-        .photo-preview {
-            width: 100%;
-            max-height: 300px;
-            object-fit: contain;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background: #f5f5f5;
-        }
-        
+
         .check-actions {
             display: flex;
             gap: 10px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
         }
         .action-btn {
             flex: 1;
             padding: 12px;
             border: none;
             border-radius: 10px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
@@ -413,568 +180,100 @@
             justify-content: center;
             gap: 6px;
         }
-        .status-badge.good { background: rgba(16,185,129,0.1); color: var(--success); }
-        .status-badge.wait { background: rgba(245,158,11,0.1); color: var(--warning); }
-        .status-badge.none { background: var(--gray-100); color: var(--gray-500); }
+        .action-btn.approve {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .action-btn.reject {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
 
-        /* 탭 콘텐츠 */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .action-btn.approve { background: linear-gradient(135deg, #10b981, #059669); color: white; }
-        .action-btn.reject { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
-        .action-btn:active { transform: scale(0.98); }
-
-        /* 빈 상태 */
         .empty-state {
             text-align: center;
-            padding: 3rem;
-            color: var(--gray-400);
-            padding: 40px;
+            padding: 40px 20px;
             color: #888;
         }
-        .empty-state i { font-size: 3rem; margin-bottom: 1rem; }
-        .empty-state i { font-size: 3rem; margin-bottom: 15px; color: #ddd; }
-        .empty-state p { font-size: 1rem; }
-
-        /* 폼 */
-        .form-row {
-        /* 완료/실패 목록 */
-        .history-card {
-            background: white;
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 8px;
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: end;
+        .empty-state i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
         }
-        .form-group {
-            flex: 1;
-            min-width: 150px;
-        }
-        .form-group label {
-            display: block;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-        }
-        .history-card.approved { border-left: 4px solid #10b981; }
-        .history-card.failed { border-left: 4px solid #ef4444; }
-        .history-info { flex: 1; }
-        .history-name { font-weight: 600; color: #333; }
-        .history-detail { font-size: 0.8rem; color: #888; margin-top: 3px; }
-        .history-status {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 0.4rem;
-        }
-        .form-group select,
-        .form-group input {
-            width: 100%;
-            padding: 0.6rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-        .form-group select:focus,
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        .history-status.approved { background: #dcfce7; color: #166534; }
-        .history-status.failed { background: #fee2e2; color: #991b1b; }
+        .empty-state p { font-size: 0.95rem; }
 
-        /* ========== 모바일 전용 스타일 ========== */
-        @media (max-width: 768px) {
-            .pc-only { display: none !important; }
-            .mobile-only { display: block !important; }
-
-            .header {
-                padding: 0.75rem 1rem;
-            }
-            .logo { font-size: 1rem; }
-            .floor-tab {
-                padding: 0.4rem 0.75rem;
-                font-size: 0.8rem;
-            }
-
-            .container { padding: 0; }
-
-            /* 모바일 통계 바 */
-            .mobile-stats {
-                display: flex;
-                background: white;
-                padding: 0.75rem;
-                justify-content: space-around;
-                border-bottom: 1px solid var(--gray-200);
-            }
-            .mobile-stat {
-                text-align: center;
-            }
-            .mobile-stat .value {
-                font-size: 1.5rem;
-                font-weight: 700;
-            }
-            .mobile-stat .value.waiting { color: var(--warning); }
-            .mobile-stat .value.done { color: var(--success); }
-            .mobile-stat .label {
-                font-size: 0.65rem;
-                color: var(--gray-500);
-            }
-
-            /* 모바일 뷰 토글 */
-            .mobile-view-toggle {
-                display: flex;
-                background: var(--gray-100);
-                margin: 0.75rem;
-                border-radius: 10px;
-                padding: 4px;
-            }
-            .mobile-view-btn {
-                flex: 1;
-                padding: 0.6rem;
-                border: none;
-                background: transparent;
-                border-radius: 8px;
-                font-size: 0.8rem;
-                font-weight: 600;
-                color: var(--gray-600);
-                cursor: pointer;
-            }
-            .mobile-view-btn.active {
-                background: white;
-                color: var(--primary);
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-
-            /* 모바일 검사 목록 */
-            .mobile-list {
-                padding: 0 0.75rem 0.75rem;
-            }
-            .mobile-check-card {
-                background: white;
-                border-radius: 12px;
-                padding: 1rem;
-                margin-bottom: 0.75rem;
-                border-left: 4px solid var(--warning);
-                box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            }
-            .mobile-check-card.done {
-                border-left-color: var(--success);
-                opacity: 0.6;
-            }
-            .mobile-check-header {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 0.5rem;
-            }
-            .mobile-check-name {
-                font-size: 1.1rem;
-                font-weight: 700;
-                color: var(--primary);
-            }
-            .mobile-check-time {
-                font-size: 0.75rem;
-                color: var(--gray-400);
-            }
-            .mobile-check-detail {
-                font-size: 0.85rem;
-                color: var(--gray-600);
-                margin-bottom: 0.75rem;
-            }
-            .mobile-check-detail .subject {
-                display: inline-block;
-                background: var(--gray-100);
-                padding: 2px 8px;
-                border-radius: 4px;
-                font-weight: 600;
-                margin-right: 4px;
-            }
-            .mobile-check-actions {
-                display: flex;
-                gap: 0.5rem;
-            }
-            .mobile-btn {
-                flex: 1;
-                padding: 0.875rem;
-                border: none;
-                border-radius: 10px;
-                font-size: 1rem;
-                font-weight: 600;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-            }
-            .mobile-btn.approve {
-                background: var(--success);
-                color: white;
-            }
-            .mobile-btn.reject {
-                background: var(--gray-200);
-                color: var(--gray-700);
-            }
-
-            /* 모바일 학생 그리드 */
-            .mobile-students-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.5rem;
-                padding: 0 0.75rem 0.75rem;
-            }
-            .mobile-student-card {
-                background: white;
-                border-radius: 10px;
-                padding: 0.75rem;
-                text-align: center;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            }
-            .mobile-student-emoji {
-                font-size: 1.75rem;
-                margin-bottom: 0.25rem;
-            }
-            .mobile-student-name {
-                font-size: 0.8rem;
-                font-weight: 600;
-                color: var(--gray-800);
-            }
-            .mobile-student-time {
-                font-size: 0.65rem;
-                color: var(--gray-500);
-            }
-
-            /* 모바일 더보기 버튼 */
-            .mobile-more-section {
-                padding: 1rem;
-                background: white;
-                border-top: 1px solid var(--gray-200);
-            }
-            .mobile-more-btn {
-                width: 100%;
-                padding: 1rem;
-                background: var(--gray-100);
-                border: none;
-                border-radius: 10px;
-                font-size: 0.9rem;
-                font-weight: 600;
-                color: var(--gray-700);
-                margin-bottom: 0.5rem;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-            }
-            .mobile-more-btn i:last-child {
-                color: var(--gray-400);
-            }
-
-            /* 모바일 패널 */
-            .mobile-panel {
-                display: none;
-                position: fixed;
-                top: 0; left: 0; right: 0; bottom: 0;
-                background: white;
-                z-index: 200;
-                overflow-y: auto;
-            }
-            .mobile-panel.active { display: block; }
-            .mobile-panel-header {
-                background: var(--primary);
-                color: white;
-                padding: 1rem;
-                display: flex;
-                align-items: center;
-                gap: 1rem;
-                position: sticky;
-                top: 0;
-            }
-            .mobile-panel-back {
-                width: 36px; height: 36px;
-                background: rgba(255,255,255,0.15);
-                border: none;
-                border-radius: 8px;
-                color: white;
-                font-size: 1rem;
-            }
-            .mobile-panel-title {
-                font-size: 1.1rem;
-                font-weight: 600;
-            }
-            .mobile-panel-content {
-                padding: 1rem;
-            }
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
         }
-
-        @media (min-width: 769px) {
-            .mobile-only { display: none !important; }
-            .stats-grid { grid-template-columns: repeat(4, 1fr); }
         .tab {
-            padding: 10px 20px;
+            flex: 1;
+            padding: 12px;
+            text-align: center;
             background: white;
             border: 2px solid #e5e5e5;
             border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
         }
-
-        @media (max-width: 1024px) and (min-width: 769px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .two-col { grid-template-columns: 1fr; }
         .tab.active {
             background: #1e3a5f;
             color: white;
             border-color: #1e3a5f;
         }
 
-        /* 토스트 */
+        .history-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .history-card.approved { border-left: 4px solid #10b981; }
+        .history-card.failed { border-left: 4px solid #ef4444; }
+        .history-info { flex: 1; }
+        .history-name { font-weight: 600; color: #333; }
+        .history-detail { font-size: 0.8rem; color: #888; margin-top: 2px; }
+        .history-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .history-status.approved { background: #dcfce7; color: #166534; }
+        .history-status.failed { background: #fee2e2; color: #991b1b; }
+
         .toast {
             position: fixed;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: var(--gray-800);
             background: #333;
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
             padding: 12px 24px;
             border-radius: 10px;
             opacity: 0;
             transition: all 0.3s;
             z-index: 500;
-            font-weight: 500;
         }
         .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-        .toast.success { background: var(--success); }
-        .toast.error { background: var(--danger); }
         .toast.success { background: #10b981; }
 
-        /* 자동 새로고침 표시 */
-        .auto-refresh-text {
-            font-size: 0.65rem;
-            color: rgba(255,255,255,0.6);
-            text-align: center;
-            padding-top: 0.5rem;
-        @media (max-width: 600px) {
+        @media (max-width: 500px) {
             .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .stat-card .value { font-size: 1.5rem; }
+            .check-header { flex-wrap: wrap; }
+            .check-page-box { min-width: 100%; margin-top: 10px; }
         }
     </style>
 </head>
 <body>
-    <!-- ========== 헤더 ========== -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <span class="pc-only">선생님 대시보드</span>
-                <span class="mobile-only">검사</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.75rem;">
-                <div class="floor-tabs">
-                    <button class="floor-tab active" data-floor="7층" onclick="selectFloor('7층')">
-                        7층 <span class="badge" id="badge7">0</span>
-                    </button>
-                    <button class="floor-tab" data-floor="8층" onclick="selectFloor('8층')">
-                        8층 <span class="badge" id="badge8">0</span>
-                    </button>
-                </div>
-                <button class="refresh-btn" id="refreshBtn" onclick="refresh()">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-            </div>
-        </div>
-        <div class="auto-refresh-text mobile-only">30초마다 자동 새로고침</div>
-    </header>
-
-    <!-- ========== PC 버전 ========== -->
-    <div class="pc-only">
-        <div class="container">
-            <div class="pc-tabs">
-                <button class="pc-tab active" onclick="showPcTab('dashboard')"><i class="fas fa-chart-pie"></i> 대시보드</button>
-                <button class="pc-tab" onclick="showPcTab('approval')"><i class="fas fa-clipboard-check"></i> 검사 승인</button>
-                <button class="pc-tab" onclick="showPcTab('students')"><i class="fas fa-users"></i> 학생 현황</button>
-                <button class="pc-tab" onclick="showPcTab('points')"><i class="fas fa-star"></i> 상벌점</button>
-                <button class="pc-tab" onclick="showPcTab('reports')"><i class="fas fa-file-alt"></i> 리포트</button>
-            </div>
-
-            <!-- 대시보드 탭 -->
-            <div class="tab-content active" id="pc-dashboard">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon blue"><i class="fas fa-users"></i></div>
-                        <div class="stat-info">
-                            <h3>총 학생</h3>
-                            <div class="value" id="pc-totalStudents">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon green"><i class="fas fa-calendar-check"></i></div>
-                        <div class="stat-info">
-                            <h3>오늘 계획</h3>
-                            <div class="value" id="pc-todayPlans">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon orange"><i class="fas fa-check-circle"></i></div>
-                        <div class="stat-info">
-                            <h3>완료</h3>
-                            <div class="value" id="pc-completed">0</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon red"><i class="fas fa-clock"></i></div>
-                        <div class="stat-info">
-                            <h3>검사 대기</h3>
-                            <div class="value" id="pc-pending">0</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="two-col">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title"><i class="fas fa-clock"></i> 검사 대기</div>
-                            <button class="btn btn-secondary" onclick="showPcTab('approval')">전체 보기</button>
-                        </div>
-                        <div id="pc-pendingPreview"></div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title"><i class="fas fa-trophy"></i> 오늘 실천율 TOP 5</div>
-                        </div>
-                        <div id="pc-topStudents"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-users"></i> 학생별 오늘 현황</div>
-                        <span id="pc-currentDate" style="color: var(--gray-500); font-size: 0.85rem;"></span>
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>이름</th>
-                                    <th>계획</th>
-                                    <th>완료</th>
-                                    <th>대기</th>
-                                    <th>실천율</th>
-                                    <th>상태</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pc-studentTable"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 검사 승인 탭 -->
-            <div class="tab-content" id="pc-approval">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-clipboard-check"></i> 검사 요청 목록</div>
-                        <button class="btn btn-secondary" onclick="refresh()"><i class="fas fa-sync"></i> 새로고침</button>
-                    </div>
-                    <div id="pc-pendingList"></div>
-                </div>
-            </div>
-
-            <!-- 학생 현황 탭 -->
-            <div class="tab-content" id="pc-students">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-users"></i> 전체 학생 현황</div>
-                        <input type="date" id="pc-statusDate" onchange="loadStudentsTab()" style="padding: 0.5rem; border: 1px solid var(--gray-300); border-radius: 6px;">
-                    </div>
-                    <div style="overflow-x: auto;">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>이름</th>
-                                    <th>계획</th>
-                                    <th>완료</th>
-                                    <th>실천율</th>
-                                    <th>공부시간</th>
-                                </tr>
-                            </thead>
-                            <tbody id="pc-allStudents"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 상벌점 탭 -->
-            <div class="tab-content" id="pc-points">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-star"></i> 상벌점 부여</div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>학생</label>
-                            <select id="pc-pointStudent"></select>
-                        </div>
-                        <div class="form-group">
-                            <label>점수</label>
-                            <select id="pc-pointScore">
-                                <option value="1">+1 (상점)</option>
-                                <option value="2">+2 (상점)</option>
-                                <option value="3">+3 (상점)</option>
-                                <option value="-1">-1 (벌점)</option>
-                                <option value="-2">-2 (벌점)</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="flex: 2;">
-                            <label>사유</label>
-                            <input type="text" id="pc-pointReason" placeholder="예: 주간 랭킹 1위">
-                        </div>
-                        <button class="btn btn-primary" onclick="addPoint()" style="height: 38px;">부여</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 리포트 탭 -->
-            <div class="tab-content" id="pc-reports">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title"><i class="fas fa-file-alt"></i> 월간 리포트</div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>학생</label>
-                            <select id="pc-reportStudent"></select>
-                        </div>
-                        <div class="form-group">
-                            <label>년월</label>
-                            <input type="month" id="pc-reportMonth">
-                        </div>
-                        <button class="btn btn-primary" onclick="generateReport()" style="height: 38px;">생성</button>
-                    </div>
-                </div>
-                <div class="card" id="pc-reportResult" style="display: none;">
-                    <div class="card-header">
-                        <div class="card-title" id="pc-reportTitle">리포트</div>
-                        <button class="btn btn-secondary" onclick="copyReport()"><i class="fas fa-copy"></i> 복사</button>
-                    </div>
-                    <div id="pc-reportContent"></div>
-                </div>
-            </div>
     <div class="header">
         <h1>👩‍🏫 선생님 대시보드</h1>
         <div class="header-right">
             <select class="floor-select" id="floorSelect" onchange="loadData()">
-                <option value="">전체</option>
                 <option value="7층">7층</option>
                 <option value="8층">8층</option>
             </select>
@@ -985,13 +284,6 @@
         </div>
     </div>
 
-    <!-- ========== 모바일 버전 ========== -->
-    <div class="mobile-only">
-        <!-- 통계 바 -->
-        <div class="mobile-stats">
-            <div class="mobile-stat">
-                <div class="value waiting" id="m-pending">0</div>
-                <div class="label">대기</div>
     <div class="container">
         <!-- 통계 -->
         <div class="stats-bar">
@@ -999,74 +291,20 @@
                 <div class="value" id="statTotal">0</div>
                 <div class="label">오늘 전체</div>
             </div>
-            <div class="mobile-stat">
-                <div class="value done" id="m-approved">0</div>
-                <div class="label">승인</div>
             <div class="stat-card waiting">
                 <div class="value" id="statWaiting">0</div>
                 <div class="label">검사 대기</div>
             </div>
-            <div class="mobile-stat">
-                <div class="value" id="m-rejected" style="color: var(--danger);">0</div>
-                <div class="label">미완료</div>
             <div class="stat-card approved">
                 <div class="value" id="statApproved">0</div>
                 <div class="label">승인</div>
             </div>
-            <div class="mobile-stat">
-                <div class="value" id="m-total">0</div>
-                <div class="label">총</div>
             <div class="stat-card failed">
                 <div class="value" id="statFailed">0</div>
                 <div class="label">실패</div>
             </div>
         </div>
 
-        <!-- 뷰 토글 -->
-        <div class="mobile-view-toggle">
-            <button class="mobile-view-btn active" onclick="switchMobileView('check')">📋 검사 대기</button>
-            <button class="mobile-view-btn" onclick="switchMobileView('students')">👥 학생 현황</button>
-        </div>
-
-        <!-- 검사 목록 -->
-        <div id="m-checkView" class="mobile-list"></div>
-
-        <!-- 학생 현황 -->
-        <div id="m-studentsView" class="mobile-students-grid" style="display: none;"></div>
-
-        <!-- 더보기 -->
-        <div class="mobile-more-section">
-            <button class="mobile-more-btn" onclick="openMobilePanel('points')">
-                <span><i class="fas fa-star" style="color: var(--warning);"></i> 상벌점 부여</span>
-                <i class="fas fa-chevron-right"></i>
-            </button>
-            <button class="mobile-more-btn" onclick="openMobilePanel('report')">
-                <span><i class="fas fa-file-alt" style="color: var(--accent);"></i> 리포트 생성</span>
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- 모바일 패널: 상벌점 -->
-    <div class="mobile-panel" id="m-pointsPanel">
-        <div class="mobile-panel-header">
-            <button class="mobile-panel-back" onclick="closeMobilePanel('points')"><i class="fas fa-arrow-left"></i></button>
-            <div class="mobile-panel-title">상벌점 부여</div>
-        </div>
-        <div class="mobile-panel-content">
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label>학생</label>
-                <select id="m-pointStudent" style="width: 100%; padding: 0.75rem;"></select>
-            </div>
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label>점수</label>
-                <select id="m-pointScore" style="width: 100%; padding: 0.75rem;">
-                    <option value="1">+1 (상점)</option>
-                    <option value="2">+2 (상점)</option>
-                    <option value="3">+3 (상점)</option>
-                    <option value="-1">-1 (벌점)</option>
-                    <option value="-2">-2 (벌점)</option>
-                </select>
         <!-- 검사 대기 -->
         <div class="section">
             <div class="section-title">
@@ -1074,40 +312,19 @@
                 검사 대기
                 <span class="badge" id="waitingBadge">0</span>
             </div>
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label>사유</label>
-                <input type="text" id="m-pointReason" placeholder="예: 주간 랭킹 1위" style="width: 100%; padding: 0.75rem;">
             <div class="check-list" id="waitingList">
                 <div class="empty-state">
                     <i class="fas fa-check-circle"></i>
                     <p>검사 대기중인 학생이 없습니다</p>
                 </div>
             </div>
-            <button class="btn btn-primary" onclick="addPointMobile()" style="width: 100%; padding: 1rem;">부여하기</button>
         </div>
-    </div>
 
-    <!-- 모바일 패널: 리포트 -->
-    <div class="mobile-panel" id="m-reportPanel">
-        <div class="mobile-panel-header">
-            <button class="mobile-panel-back" onclick="closeMobilePanel('report')"><i class="fas fa-arrow-left"></i></button>
-            <div class="mobile-panel-title">월간 리포트</div>
         <!-- 탭 -->
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('approved')">✅ 승인 목록</div>
-            <div class="tab" onclick="switchTab('failed')">❌ 실패 목록</div>
+            <div class="tab active" id="tabApproved" onclick="switchTab('approved')">✅ 승인 목록</div>
+            <div class="tab" id="tabFailed" onclick="switchTab('failed')">❌ 실패 목록</div>
         </div>
-        <div class="mobile-panel-content">
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label>학생</label>
-                <select id="m-reportStudent" style="width: 100%; padding: 0.75rem;"></select>
-            </div>
-            <div class="form-group" style="margin-bottom: 1rem;">
-                <label>년월</label>
-                <input type="month" id="m-reportMonth" style="width: 100%; padding: 0.75rem;">
-            </div>
-            <button class="btn btn-primary" onclick="generateReportMobile()" style="width: 100%; padding: 1rem;">리포트 생성</button>
-            <div id="m-reportResult" style="margin-top: 1rem;"></div>
 
         <!-- 승인/실패 목록 -->
         <div class="section">
@@ -1115,177 +332,84 @@
         </div>
     </div>
 
-    <!-- 토스트 -->
     <div class="toast" id="toast"></div>
 
     <script>
         const API = 'https://script.google.com/macros/s/AKfycbwGFbsj8FgFIuF-iFkJ4ekyS76MWQf9UrUysJ-Fs12vuVByJwenoYRgOJeOZiPOa6gzkg/exec';
-
-        let currentFloor = '7층';
-        let pendingRequests = [];
-        let todayRecords = [];
-        let allStudents = [];
-        let autoRefreshInterval = null;
-
-        function fmt(d) { return d.toISOString().split('T')[0]; }
+        
         let records = [];
         let currentTab = 'approved';
-        let expandedCard = null;
-
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            // 30초마다 자동 새로고침
+            setInterval(loadData, 30000);
+        });
+        
         async function api(data) {
             try {
-@@ -905,499 +364,176 @@ <h3>검사 대기</h3>
-            } catch { return { success: false }; }
+                const res = await fetch(API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(data)
+                });
+                return await res.json();
+            } catch (e) {
+                console.error('API Error:', e);
+                return { success: false, error: e.toString() };
+            }
         }
-
-        // 초기화
-        async function init() {
-            document.getElementById('pc-statusDate').value = fmt(new Date());
-            document.getElementById('pc-reportMonth').value = fmt(new Date()).slice(0, 7);
-            document.getElementById('m-reportMonth').value = fmt(new Date()).slice(0, 7);
-            document.getElementById('pc-currentDate').textContent = new Date().toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' });
-            
-            await loadAllStudents();
-            await refresh();
-            
-            // 30초마다 자동 새로고침
-            autoRefreshInterval = setInterval(refresh, 30000);
+        
+        function getToday() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
         }
-
-        async function loadAllStudents() {
-            const [res7, res8] = await Promise.all([
-                api({ action: 'getStudents', floor: '7층' }),
-                api({ action: 'getStudents', floor: '8층' })
-            ]);
-            
-            allStudents = [
-                ...(res7.success ? res7.students.map(s => ({...s, floor: '7층'})) : []),
-                ...(res8.success ? res8.students.map(s => ({...s, floor: '8층'})) : [])
-            ];
+        
         async function loadData() {
             const floor = document.getElementById('floorSelect').value;
-            const today = new Date().toISOString().split('T')[0];
-
-            // 학생 선택 드롭다운 채우기
-            const options = '<option value="">선택</option>' + 
-                allStudents.map(s => `<option value="${s.floor}|${s.name}">[${s.floor}] ${s.name}</option>`).join('');
+            const today = getToday();
             
-            ['pc-pointStudent', 'pc-reportStudent', 'm-pointStudent', 'm-reportStudent'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.innerHTML = options;
-            const res = await api({
-                action: 'getCheckRequests',
-                floor: floor || undefined,
+            // 검사 대기 목록 로드
+            const pendingRes = await api({
+                action: 'getPendingChecks',
+                floor: floor,
                 date: today
             });
-        }
-
-        async function refresh() {
-            const btn = document.getElementById('refreshBtn');
-            btn.classList.add('spinning');
             
-            await loadPendingRequests();
-            await loadTodayRecords();
-            updateUI();
-
-            btn.classList.remove('spinning');
-        }
-
-        async function loadPendingRequests() {
-            const today = fmt(new Date());
-            const [res7, res8] = await Promise.all([
-                api({ action: 'getPendingChecks', floor: '7층', date: today }),
-                api({ action: 'getPendingChecks', floor: '8층', date: today })
-            ]);
+            // 오늘 전체 기록 로드
+            const todayRes = await api({
+                action: 'getTodayRecords',
+                floor: floor,
+                date: today
+            });
             
-            pendingRequests = [
-                ...(res7.success ? res7.records.map(r => ({...r, floor: '7층'})) : []),
-                ...(res8.success ? res8.records.map(r => ({...r, floor: '8층'})) : [])
-            ];
-            if (res.success) {
-                records = res.records || [];
+            if (pendingRes.success && todayRes.success) {
+                records = todayRes.records || [];
                 renderStats();
-                renderWaitingList();
+                renderWaitingList(pendingRes.records || []);
                 renderHistoryList();
             }
         }
-
-        async function loadTodayRecords() {
-            const today = fmt(new Date());
-            const [res7, res8] = await Promise.all([
-                api({ action: 'getTodayRecords', floor: '7층', date: today }),
-                api({ action: 'getTodayRecords', floor: '8층', date: today })
-            ]);
+        
         function renderStats() {
             const waiting = records.filter(r => r.status === 'requested');
             const approved = records.filter(r => r.status === 'approved' || r.status === 'O');
             const failed = records.filter(r => r.status === 'failed' || r.status === 'X');
-
-            todayRecords = [
-                ...(res7.success ? res7.records.map(r => ({...r, floor: '7층'})) : []),
-                ...(res8.success ? res8.records.map(r => ({...r, floor: '8층'})) : [])
-            ];
-        }
-
-        function updateUI() {
-            // 배지 업데이트
-            const pending7 = pendingRequests.filter(r => r.floor === '7층').length;
-            const pending8 = pendingRequests.filter(r => r.floor === '8층').length;
-            document.getElementById('badge7').textContent = pending7;
-            document.getElementById('badge8').textContent = pending8;
-
-            // 현재 층 데이터
-            const floorPending = pendingRequests.filter(r => r.floor === currentFloor);
-            const floorRecords = todayRecords.filter(r => r.floor === currentFloor);
-            const approved = floorRecords.filter(r => r.status === 'approved' || r.status === 'O').length;
-            const rejected = floorRecords.filter(r => r.status === 'failed' || r.status === 'X').length;
-
-            // PC 대시보드
-            const floorStudents = allStudents.filter(s => s.floor === currentFloor);
-            document.getElementById('pc-totalStudents').textContent = floorStudents.length;
-            document.getElementById('pc-todayPlans').textContent = floorRecords.length;
-            document.getElementById('pc-completed').textContent = approved;
-            document.getElementById('pc-pending').textContent = floorPending.length;
-
-            // 모바일 통계
-            document.getElementById('m-pending').textContent = floorPending.length;
-            document.getElementById('m-approved').textContent = approved;
-            document.getElementById('m-rejected').textContent = rejected;
-            document.getElementById('m-total').textContent = floorRecords.length;
-
-            renderPendingLists();
-            renderStudentStatus();
-            renderMobileViews();
+            
             document.getElementById('statTotal').textContent = records.length;
             document.getElementById('statWaiting').textContent = waiting.length;
             document.getElementById('statApproved').textContent = approved.length;
             document.getElementById('statFailed').textContent = failed.length;
             document.getElementById('waitingBadge').textContent = waiting.length;
         }
-
-        function renderPendingLists() {
-            const floorPending = pendingRequests.filter(r => r.floor === currentFloor);
-        function renderWaitingList() {
-            const waiting = records.filter(r => r.status === 'requested');
+        
+        function renderWaitingList(waitingRecords) {
             const container = document.getElementById('waitingList');
-
-            // PC 미리보기 (3개)
-            const preview = document.getElementById('pc-pendingPreview');
-            if (floorPending.length > 0) {
-                preview.innerHTML = floorPending.slice(0, 3).map(r => `
-                    <div class="check-item">
-                        <div class="check-info">
-                            <h4>${r.name} - ${r.book || r.bookName}</h4>
-                            <p>${r.subject} · ${r.actualTime || r.time}분</p>
-                        </div>
-                        <div class="check-actions">
-                            <button class="btn btn-success" onclick="approve('${r.name}','${r.date}','${r.subject}','${r.book || r.bookName}')">승인</button>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                preview.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>대기 없음</p></div>';
-            if (waiting.length === 0) {
+            
+            if (!waitingRecords || waitingRecords.length === 0) {
                 container.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-check-circle"></i>
@@ -1293,468 +417,117 @@
                     </div>`;
                 return;
             }
-
-            // PC 전체 목록
-            const fullList = document.getElementById('pc-pendingList');
-            if (floorPending.length > 0) {
-                fullList.innerHTML = floorPending.map(r => `
-                    <div class="check-item">
-                        <div class="check-info">
-                            <h4>${r.name} - [${r.subject}] ${r.book || r.bookName}</h4>
-                            <p>⏱️ ${r.actualTime || r.time}분 ${r.startPage ? `· 📖 p.${r.startPage}~${r.endPage}` : ''}</p>
             
-            container.innerHTML = waiting.map((r, idx) => {
-                const range = r.bookType === 'lecture' 
+            container.innerHTML = waitingRecords.map(r => {
+                const isLecture = r.bookType === 'lecture';
+                const rangeText = isLecture 
                     ? `${r.startPage || '?'}강 ~ ${r.endPage || '?'}강`
                     : `p.${r.startPage || '?'} ~ p.${r.endPage || '?'}`;
-                const hasPhoto = r.photoData ? '<span class="has-photo">📷 사진 첨부</span>' : '';
-                const submittedTime = r.submittedAt ? new Date(r.submittedAt).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }) : '';
+                const rangeLabel = isLecture ? '강의 범위' : '페이지 범위';
                 
                 return `
-                    <div class="check-card" id="card-${idx}" onclick="toggleCard(${idx})">
+                    <div class="check-card">
                         <div class="check-header">
                             <div class="check-info">
                                 <div class="check-name">${r.name} <span style="font-size:0.8rem;color:#888;">(${r.floor})</span></div>
                                 <span class="check-subject">${r.subject}</span>
                                 <div class="check-book">📚 ${r.bookName || r.book}</div>
-                                <div class="check-range">📖 ${range}</div>
-                                ${hasPhoto}
-                                <div class="check-time"><i class="far fa-clock"></i> ${r.actualTime || 0}분 학습</div>
                             </div>
-                            <div class="check-meta">
-                                <div class="check-duration">${r.actualTime || 0}<span>분</span></div>
-                                <div class="check-submitted">${submittedTime}</div>
+                            <div class="check-page-box">
+                                <div class="page-label">${rangeLabel}</div>
+                                <div class="page-range">${rangeText}</div>
+                            </div>
+                            <div class="check-time-box">
+                                <div class="time-value">${r.actualTime || r.time || 0}</div>
+                                <div class="time-label">분</div>
                             </div>
                         </div>
                         <div class="check-actions">
-                            <button class="btn btn-success" onclick="approve('${r.name}','${r.date}','${r.subject}','${r.book || r.bookName}')"><i class="fas fa-check"></i> 승인</button>
-                            <button class="btn btn-danger" onclick="reject('${r.name}','${r.date}','${r.subject}','${r.book || r.bookName}')"><i class="fas fa-times"></i> 반려</button>
-                        <div class="check-detail">
-                            ${r.photoData ? `<img src="${r.photoData}" class="photo-preview" alt="인증사진">` : '<p style="color:#888;text-align:center;padding:20px;">사진이 없습니다</p>'}
-                            <div class="check-actions">
-                                <button class="action-btn approve" onclick="event.stopPropagation(); approveCheck('${r.id}', '${r.floor}', '${r.name}', '${r.date}', '${r.subject}', '${r.bookName || r.book}')">
-                                    <i class="fas fa-check"></i> 승인
-                                </button>
-                                <button class="action-btn reject" onclick="event.stopPropagation(); rejectCheck('${r.id}', '${r.floor}', '${r.name}', '${r.date}', '${r.subject}', '${r.bookName || r.book}')">
-                                    <i class="fas fa-times"></i> 실패
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            } else {
-                fullList.innerHTML = '<div class="empty-state"><i class="fas fa-check-circle"></i><p>대기 중인 요청이 없습니다 🎉</p></div>';
-            }
-        }
-
-        function renderStudentStatus() {
-            // 학생별 오늘 현황 집계
-            const floorStudents = allStudents.filter(s => s.floor === currentFloor);
-            const statusData = floorStudents.map(student => {
-                const records = todayRecords.filter(r => r.floor === currentFloor && r.name === student.name);
-                const pending = pendingRequests.filter(r => r.floor === currentFloor && r.name === student.name).length;
-                const completed = records.filter(r => r.status === 'approved' || r.status === 'O').length;
-                const total = records.length + pending;
-                const rate = total > 0 ? Math.round(completed / total * 100) : 0;
-                return { name: student.name, total, completed, pending, rate };
-            });
-
-            // PC 테이블
-            const tbody = document.getElementById('pc-studentTable');
-            tbody.innerHTML = statusData.map(s => {
-                let statusClass = 'none', statusText = '미등록';
-                if (s.total > 0) {
-                    if (s.rate >= 80) { statusClass = 'good'; statusText = '우수'; }
-                    else if (s.pending > 0) { statusClass = 'wait'; statusText = '검사대기'; }
-                    else { statusClass = 'none'; statusText = '진행중'; }
-                }
-                return `<tr>
-                    <td style="font-weight: 600;">${s.name}</td>
-                    <td>${s.total}</td>
-                    <td>${s.completed}</td>
-                    <td>${s.pending}</td>
-                    <td><div style="display:flex;align-items:center;gap:0.5rem;">
-                        <div class="progress-bar"><div class="progress-fill" style="width:${s.rate}%"></div></div>
-                        ${s.rate}%
-                    </div></td>
-                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
-                </tr>`;
-                    </div>`;
-            }).join('');
-
-            // PC TOP 5
-            const top5 = statusData.filter(s => s.total > 0).sort((a, b) => b.rate - a.rate).slice(0, 5);
-            const topContainer = document.getElementById('pc-topStudents');
-            if (top5.length > 0) {
-                topContainer.innerHTML = top5.map((s, i) => `
-                    <div style="display:flex;justify-content:space-between;padding:0.6rem 0;${i < top5.length - 1 ? 'border-bottom:1px solid var(--gray-100);' : ''}">
-                        <div style="display:flex;align-items:center;gap:0.75rem;">
-                            <span style="width:24px;height:24px;background:${['#fbbf24','#9ca3af','#f97316'][i] || 'var(--gray-200)'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:700;color:${i < 3 ? 'white' : 'var(--gray-600)'};">${i + 1}</span>
-                            <span style="font-weight:600;">${s.name}</span>
-                        </div>
-                        <span style="font-weight:600;color:var(--success);">${s.rate}%</span>
-                    </div>
-                `).join('');
-            } else {
-                topContainer.innerHTML = '<div class="empty-state"><p>데이터 없음</p></div>';
-            }
-        }
-
-        function renderMobileViews() {
-            const floorPending = pendingRequests.filter(r => r.floor === currentFloor);
-            const floorRecords = todayRecords.filter(r => r.floor === currentFloor);
-
-            // 모바일 검사 목록
-            const checkView = document.getElementById('m-checkView');
-            if (floorPending.length > 0) {
-                checkView.innerHTML = floorPending.map(r => `
-                    <div class="mobile-check-card">
-                        <div class="mobile-check-header">
-                            <div class="mobile-check-name">${r.name}</div>
-                            <div class="mobile-check-time">${r.requestTime ? new Date(r.requestTime).toLocaleTimeString('ko-KR', {hour:'2-digit',minute:'2-digit'}) : ''}</div>
-                        </div>
-                        <div class="mobile-check-detail">
-                            <span class="subject">${r.subject}</span> ${r.book || r.bookName}
-                            <br>⏱️ ${r.actualTime || r.time}분 ${r.startPage ? `· 📖 p.${r.startPage}~${r.endPage}` : ''}
-                        </div>
-                        <div class="mobile-check-actions">
-                            <button class="mobile-btn reject" onclick="reject('${r.name}','${r.date}','${r.subject}','${r.book || r.bookName}')">
-                                <i class="fas fa-times"></i> 다시해
-                            </button>
-                            <button class="mobile-btn approve" onclick="approve('${r.name}','${r.date}','${r.subject}','${r.book || r.bookName}')">
+                            <button class="action-btn approve" onclick="approveCheck('${r.floor}', '${r.name}', '${r.date}', '${r.subject}', '${r.bookName || r.book}')">
                                 <i class="fas fa-check"></i> 승인
                             </button>
+                            <button class="action-btn reject" onclick="rejectCheck('${r.floor}', '${r.name}', '${r.date}', '${r.subject}', '${r.bookName || r.book}')">
+                                <i class="fas fa-times"></i> 실패
+                            </button>
                         </div>
-                    </div>
-                `).join('');
-            } else {
-                checkView.innerHTML = '<div class="empty-state" style="padding:2rem;"><i class="fas fa-check-circle"></i><p>검사 대기 없음 🎉</p></div>';
-        function toggleCard(idx) {
-            const card = document.getElementById(`card-${idx}`);
-            if (expandedCard && expandedCard !== card) {
-                expandedCard.classList.remove('expanded');
-            }
-
-            // 모바일 학생 현황
-            const studentsView = document.getElementById('m-studentsView');
-            const floorStudents = allStudents.filter(s => s.floor === currentFloor);
-            const studentTimes = {};
-            floorRecords.forEach(r => {
-                if (!studentTimes[r.name]) studentTimes[r.name] = 0;
-                if (r.status === 'approved' || r.status === 'O') {
-                    studentTimes[r.name] += (r.actualTime || r.time || 0);
-                }
-            });
-
-            const sortedStudents = floorStudents.map(s => ({
-                name: s.name,
-                time: studentTimes[s.name] || 0
-            })).sort((a, b) => b.time - a.time);
-
-            studentsView.innerHTML = sortedStudents.map(s => {
-                let emoji = '😴';
-                if (s.time >= 480) emoji = '😊';
-                else if (s.time >= 240) emoji = '🙂';
-                else if (s.time > 0) emoji = '😢';
-                
-                const h = Math.floor(s.time / 60);
-                const m = s.time % 60;
-                const timeStr = h > 0 ? `${h}시간 ${m}분` : `${m}분`;
-
-                return `<div class="mobile-student-card">
-                    <div class="mobile-student-emoji">${emoji}</div>
-                    <div class="mobile-student-name">${s.name}</div>
-                    <div class="mobile-student-time">${timeStr}</div>
-                </div>`;
+                    </div>`;
             }).join('');
-            card.classList.toggle('expanded');
-            expandedCard = card.classList.contains('expanded') ? card : null;
         }
-
-        // 층 선택
-        function selectFloor(floor) {
-            currentFloor = floor;
-            document.querySelectorAll('.floor-tab').forEach(t => {
-                t.classList.toggle('active', t.dataset.floor === floor);
-            });
-            updateUI();
+        
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('tabApproved').classList.toggle('active', tab === 'approved');
+            document.getElementById('tabFailed').classList.toggle('active', tab === 'failed');
+            renderHistoryList();
         }
-
-        // PC 탭 전환
-        function showPcTab(tabId) {
-            document.querySelectorAll('.pc-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            event.target.closest('.pc-tab').classList.add('active');
-            document.getElementById('pc-' + tabId).classList.add('active');
-
-            if (tabId === 'students') loadStudentsTab();
-        }
-
-        async function loadStudentsTab() {
-            const date = document.getElementById('pc-statusDate').value;
-            const res = await api({ action: 'getTodayRecords', floor: currentFloor, date });
+        
         function renderHistoryList() {
-            const list = currentTab === 'approved' 
-                ? records.filter(r => r.status === 'approved' || r.status === 'O')
-                : records.filter(r => r.status === 'failed' || r.status === 'X');
-
-            const tbody = document.getElementById('pc-allStudents');
-            if (res.success) {
-                const records = res.records || [];
-                const studentData = {};
-                
-                records.forEach(r => {
-                    if (!studentData[r.name]) {
-                        studentData[r.name] = { total: 0, completed: 0, time: 0 };
-                    }
-                    studentData[r.name].total++;
-                    if (r.status === 'approved' || r.status === 'O') {
-                        studentData[r.name].completed++;
-                        studentData[r.name].time += (r.actualTime || r.time || 0);
-                    }
-                });
-
-                const rows = Object.entries(studentData).map(([name, d]) => {
-                    const rate = d.total > 0 ? Math.round(d.completed / d.total * 100) : 0;
-                    const hours = Math.floor(d.time / 60);
-                    const mins = d.time % 60;
-                    return `<tr>
-                        <td style="font-weight:600;">${name}</td>
-                        <td>${d.total}</td>
-                        <td>${d.completed}</td>
-                        <td>${rate}%</td>
-                        <td>${hours}h ${mins}m</td>
-                    </tr>`;
-                });
-
-                tbody.innerHTML = rows.length > 0 ? rows.join('') : '<tr><td colspan="5" class="empty-state">데이터 없음</td></tr>';
             const container = document.getElementById('historyList');
             
-            if (list.length === 0) {
-                container.innerHTML = `<div class="empty-state"><p>${currentTab === 'approved' ? '승인된' : '실패한'} 기록이 없습니다</p></div>`;
+            let filtered;
+            if (currentTab === 'approved') {
+                filtered = records.filter(r => r.status === 'approved' || r.status === 'O');
+            } else {
+                filtered = records.filter(r => r.status === 'failed' || r.status === 'X');
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <p>${currentTab === 'approved' ? '승인된' : '실패한'} 기록이 없습니다</p>
+                    </div>`;
                 return;
             }
             
-            container.innerHTML = list.map(r => {
-                const range = r.bookType === 'lecture' 
-                    ? `${r.startPage || '?'}강~${r.endPage || '?'}강`
-                    : `p.${r.startPage || '?'}~${r.endPage || '?'}`;
-                const statusClass = (r.status === 'approved' || r.status === 'O') ? 'approved' : 'failed';
-                const statusText = (r.status === 'approved' || r.status === 'O') ? '승인' : '실패';
-                
-                return `
-                    <div class="history-card ${statusClass}">
-                        <div class="history-info">
-                            <div class="history-name">${r.name} (${r.floor})</div>
-                            <div class="history-detail">${r.subject} · ${r.bookName || r.book} · ${range} · ${r.actualTime || 0}분</div>
-                        </div>
-                        <span class="history-status ${statusClass}">${statusText}</span>
-                    </div>`;
-            }).join('');
+            container.innerHTML = filtered.map(r => `
+                <div class="history-card ${currentTab}">
+                    <div class="history-info">
+                        <div class="history-name">${r.name}</div>
+                        <div class="history-detail">${r.subject} · ${r.bookName || r.book} · ${r.actualTime || r.time || 0}분</div>
+                    </div>
+                    <div class="history-status ${currentTab}">
+                        ${currentTab === 'approved' ? '✅ 승인' : '❌ 실패'}
+                    </div>
+                </div>
+            `).join('');
         }
-
-        // 모바일 뷰 전환
-        function switchMobileView(view) {
-            document.querySelectorAll('.mobile-view-btn').forEach((b, i) => {
-                b.classList.toggle('active', (view === 'check' && i === 0) || (view === 'students' && i === 1));
-            });
-            document.getElementById('m-checkView').style.display = view === 'check' ? 'block' : 'none';
-            document.getElementById('m-studentsView').style.display = view === 'students' ? 'grid' : 'none';
-        }
-
-        // 모바일 패널
-        function openMobilePanel(type) {
-            document.getElementById('m-' + type + 'Panel').classList.add('active');
-        }
-        function closeMobilePanel(type) {
-            document.getElementById('m-' + type + 'Panel').classList.remove('active');
-        function switchTab(tab) {
-            currentTab = tab;
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            renderHistoryList();
-        }
-
-        // 승인
-        async function approve(name, date, subject, book) {
-        async function approveCheck(id, floor, name, date, subject, bookName) {
+        
+        async function approveCheck(floor, name, date, subject, bookName) {
             const res = await api({
                 action: 'approveCheck',
-                floor: currentFloor,
-                name, date, subject, bookName: book
-                id, floor, name, date, subject, bookName,
-                status: 'approved'
+                floor, name, date, subject, bookName
             });
-
+            
             if (res.success) {
-                toast('✅ 승인 완료!', 'success');
-                const idx = pendingRequests.findIndex(r => r.name === name && r.date === date && r.subject === subject);
-                if (idx > -1) {
-                    const record = pendingRequests.splice(idx, 1)[0];
-                    record.status = 'approved';
-                    todayRecords.push(record);
-                }
-                updateUI();
-                toast('✅ 승인 완료!', true);
+                toast('✅ 승인되었습니다!', 'success');
                 loadData();
             } else {
-                toast('승인 실패', 'error');
-                toast('처리 실패');
+                toast('승인 실패: ' + (res.error || ''));
             }
         }
-
-        // 반려
-        async function reject(name, date, subject, book) {
-        async function rejectCheck(id, floor, name, date, subject, bookName) {
+        
+        async function rejectCheck(floor, name, date, subject, bookName) {
             const res = await api({
                 action: 'rejectCheck',
-                floor: currentFloor,
-                name, date, subject, bookName: book
-                action: 'approveCheck',
-                id, floor, name, date, subject, bookName,
-                status: 'failed'
+                floor, name, date, subject, bookName
             });
-
+            
             if (res.success) {
-                toast('❌ 미완료 처리됨', 'error');
-                const idx = pendingRequests.findIndex(r => r.name === name && r.date === date && r.subject === subject);
-                if (idx > -1) {
-                    const record = pendingRequests.splice(idx, 1)[0];
-                    record.status = 'failed';
-                    todayRecords.push(record);
-                }
-                updateUI();
-            }
-        }
-
-        // 상벌점
-        async function addPoint() {
-            const val = document.getElementById('pc-pointStudent').value;
-            if (!val) return toast('학생 선택');
-            const [floor, name] = val.split('|');
-            const score = document.getElementById('pc-pointScore').value;
-            const reason = document.getElementById('pc-pointReason').value;
-            if (!reason) return toast('사유 입력');
-
-            const res = await api({ action: 'addPoint', floor, name, score: parseInt(score), reason });
-            if (res.success) {
-                toast('✅ 상벌점 부여됨', 'success');
-                document.getElementById('pc-pointReason').value = '';
-            }
-        }
-
-        async function addPointMobile() {
-            const val = document.getElementById('m-pointStudent').value;
-            if (!val) return toast('학생 선택');
-            const [floor, name] = val.split('|');
-            const score = document.getElementById('m-pointScore').value;
-            const reason = document.getElementById('m-pointReason').value;
-            if (!reason) return toast('사유 입력');
-
-            const res = await api({ action: 'addPoint', floor, name, score: parseInt(score), reason });
-            if (res.success) {
-                toast('✅ 상벌점 부여됨', 'success');
-                document.getElementById('m-pointReason').value = '';
-                closeMobilePanel('points');
-            }
-        }
-
-        // 리포트
-        async function generateReport() {
-            const val = document.getElementById('pc-reportStudent').value;
-            if (!val) return toast('학생 선택');
-            const [floor, name] = val.split('|');
-            const ym = document.getElementById('pc-reportMonth').value.split('-');
-
-            const res = await api({
-                action: 'getMonthlyReport',
-                floor, name,
-                year: parseInt(ym[0]),
-                month: parseInt(ym[1])
-            });
-
-            if (res.success) {
-                const r = res.report;
-                document.getElementById('pc-reportResult').style.display = 'block';
-                document.getElementById('pc-reportTitle').textContent = `${name} - ${ym[0]}년 ${ym[1]}월 리포트`;
-                document.getElementById('pc-reportContent').innerHTML = `
-                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1rem;">
-                        <div style="background:var(--gray-50);padding:1rem;border-radius:10px;text-align:center;">
-                            <div style="font-size:0.8rem;color:var(--gray-500);">총 계획</div>
-                            <div style="font-size:1.5rem;font-weight:700;color:var(--primary);">${r.stats.totalPlans}</div>
-                        </div>
-                        <div style="background:var(--gray-50);padding:1rem;border-radius:10px;text-align:center;">
-                            <div style="font-size:0.8rem;color:var(--gray-500);">완료</div>
-                            <div style="font-size:1.5rem;font-weight:700;color:var(--success);">${r.stats.completed}</div>
-                        </div>
-                        <div style="background:var(--gray-50);padding:1rem;border-radius:10px;text-align:center;">
-                            <div style="font-size:0.8rem;color:var(--gray-500);">실천율</div>
-                            <div style="font-size:1.5rem;font-weight:700;color:var(--warning);">${r.stats.rate}%</div>
-                        </div>
-                        <div style="background:var(--gray-50);padding:1rem;border-radius:10px;text-align:center;">
-                            <div style="font-size:0.8rem;color:var(--gray-500);">공부시간</div>
-                            <div style="font-size:1.5rem;font-weight:700;color:var(--accent);">${r.stats.totalTimeHours}h</div>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        async function generateReportMobile() {
-            const val = document.getElementById('m-reportStudent').value;
-            if (!val) return toast('학생 선택');
-            const [floor, name] = val.split('|');
-            const ym = document.getElementById('m-reportMonth').value.split('-');
-
-            const res = await api({
-                action: 'getMonthlyReport',
-                floor, name,
-                year: parseInt(ym[0]),
-                month: parseInt(ym[1])
-            });
-
-            if (res.success) {
-                const r = res.report;
-                document.getElementById('m-reportResult').innerHTML = `
-                    <div style="background:var(--gray-50);padding:1rem;border-radius:10px;">
-                        <h4 style="margin-bottom:0.75rem;">${name} - ${ym[0]}년 ${ym[1]}월</h4>
-                        <p>📊 총 계획: ${r.stats.totalPlans}개</p>
-                        <p>✅ 완료: ${r.stats.completed}개</p>
-                        <p>📈 실천율: ${r.stats.rate}%</p>
-                        <p>⏱️ 공부시간: ${r.stats.totalTimeHours}시간</p>
-                    </div>
-                `;
-                toast('❌ 실패 처리됨', true);
+                toast('❌ 실패 처리되었습니다', 'success');
                 loadData();
             } else {
-                toast('처리 실패');
+                toast('처리 실패: ' + (res.error || ''));
             }
         }
-
-        function copyReport() {
-            const title = document.getElementById('pc-reportTitle').textContent;
-            const content = document.getElementById('pc-reportContent').innerText;
-            navigator.clipboard.writeText(title + '\n' + content);
-            toast('📋 복사됨', 'success');
-        }
-
+        
         function toast(msg, type = '') {
-        function toast(msg, success = false) {
             const t = document.getElementById('toast');
             t.textContent = msg;
-            t.className = 'toast ' + type;
-            t.className = 'toast' + (success ? ' success' : '');
+            t.className = 'toast' + (type ? ` ${type}` : '');
             t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
+            setTimeout(() => t.classList.remove('show'), 2500);
         }
-
-        // 시작
-        init();
-        // 자동 새로고침 (30초)
-        setInterval(loadData, 30000);
-        
-        // 초기 로드
-        loadData();
     </script>
 </body>
 </html>
