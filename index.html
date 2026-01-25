@@ -3228,31 +3228,6 @@ function loadSavedStyle() {
         displayStyleResult();
     }
 }
-
-function startStyleTest() {
-    const types = ['VSPG', 'ASFG', 'KGPG', 'VGFG'];
-    const code = types[Math.floor(Math.random() * types.length)];
-    const typeNames = {
-        'VSPG': '시각적 계획형 학습자',
-        'ASFG': '청각적 협력형 학습자',
-        'KGPG': '체험적 목표형 학습자',
-        'VGFG': '시각적 유연형 학습자'
-    };
-    const allTips = {
-        'VSPG': ['📊 도표와 그래프 활용', '📝 색깔 펜으로 표시', '🎯 구체적 목표 설정'],
-        'ASFG': ['🎧 강의 들으며 공부', '👥 스터디 그룹 활용', '🗣️ 말로 설명해보기'],
-        'KGPG': ['✍️ 직접 문제 풀기', '🏆 단기 목표 달성', '📋 체크리스트 활용'],
-        'VGFG': ['📱 다양한 자료 활용', '🎨 마인드맵 정리', '🔀 과목 번갈아 공부']
-    };
-    
-    styleData = { code, name: typeNames[code], tips: allTips[code] };
-    localStorage.setItem(`style_${user.name}`, JSON.stringify(styleData));
-    // API 저장
-    api({ action: 'saveStyle', floor: user.floor, name: user.name, ...styleData, date: fmt(new Date()) });
-    displayStyleResult();
-    toast('성향 진단 완료!', 'success');
-}
-
 function displayStyleResult() {
     if (!styleData) return;
     document.getElementById('styleIntro').style.display = 'none';
