@@ -1332,24 +1332,122 @@ function loadSavedStyle() {
     }
 }
 
+// ========== 학습성향 진단 (질문 기반) ==========
+const styleQuestions = [
+    {
+        q: "새로운 내용을 배울 때 선호하는 방식은?",
+        a: [
+            { text: "📊 그림, 도표, 영상으로 보기", type: "V" },
+            { text: "🎧 설명을 듣거나 강의 듣기", type: "A" },
+            { text: "✍️ 직접 해보며 익히기", type: "K" }
+        ]
+    },
+    {
+        q: "공부할 때 집중이 잘 되는 환경은?",
+        a: [
+            { text: "🤫 혼자 조용히", type: "S" },
+            { text: "👥 친구들과 함께", type: "G" }
+        ]
+    },
+    {
+        q: "학습 계획을 세울 때 나는?",
+        a: [
+            { text: "📋 세부 계획을 꼼꼼히 세운다", type: "P" },
+            { text: "🔀 유연하게 상황에 맞춰 한다", type: "F" }
+        ]
+    },
+    {
+        q: "어려운 문제를 만났을 때 나는?",
+        a: [
+            { text: "🎯 끝까지 혼자 해결하려 한다", type: "S" },
+            { text: "🙋 바로 질문하거나 도움을 구한다", type: "G" }
+        ]
+    },
+    {
+        q: "시험 공부할 때 효과적인 방법은?",
+        a: [
+            { text: "📝 요약 노트, 마인드맵 만들기", type: "V" },
+            { text: "🗣️ 소리 내어 읽거나 설명하기", type: "A" },
+            { text: "📚 문제를 많이 풀어보기", type: "K" }
+        ]
+    }
+];
+
+let currentQuestion = 0;
+let styleAnswers = { V: 0, A: 0, K: 0, S: 0, G: 0, P: 0, F: 0 };
+
 function startStyleTest() {
-    const types = ['VSPG', 'ASFG', 'KGPG', 'VGFG'];
-    const code = types[Math.floor(Math.random() * types.length)];
+    currentQuestion = 0;
+    styleAnswers = { V: 0, A: 0, K: 0, S: 0, G: 0, P: 0, F: 0 };
+    document.getElementById('styleIntro').style.display = 'none';
+    document.getElementById('styleResult').style.display = 'block';
+    showQuestion();
+}
+
+function showQuestion() {
+    if (currentQuestion >= styleQuestions.length) {
+        finishStyleTest();
+        return;
+    }
+    
+    const q = styleQuestions[currentQuestion];
+    document.getElementById('styleResult').innerHTML = `
+        <div class="my-stats-card">
+            <div style="text-align:center;margin-bottom:20px;">
+                <div style="font-size:0.9rem;color:#888;">질문 ${currentQuestion + 1} / ${styleQuestions.length}</div>
+                <div style="height:6px;background:#e5e5e5;border-radius:3px;margin-top:8px;">
+                    <div style="height:100%;width:${((currentQuestion + 1) / styleQuestions.length) * 100}%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);border-radius:3px;"></div>
+                </div>
+            </div>
+            <div style="font-size:1.1rem;font-weight:600;color:var(--primary);text-align:center;margin-bottom:20px;">${q.q}</div>
+            <div class="style-answers">
+                ${q.a.map((ans, i) => `
+                    <button onclick="selectAnswer('${ans.type}')" class="style-answer-btn">${ans.text}</button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function selectAnswer(type) {
+    styleAnswers[type]++;
+    currentQuestion++;
+    showQuestion();
+}
+
+function finishStyleTest() {
+    const learning = styleAnswers.V >= styleAnswers.A && styleAnswers.V >= styleAnswers.K ? 'V' :
+                     styleAnswers.A >= styleAnswers.K ? 'A' : 'K';
+    const social = styleAnswers.S >= styleAnswers.G ? 'S' : 'G';
+    const planning = styleAnswers.P >= styleAnswers.F ? 'P' : 'F';
+    
+    const code = learning + social + planning + 'G';
+    
     const typeNames = {
-        'VSPG': '시각적 계획형 학습자',
-        'ASFG': '청각적 협력형 학습자',
-        'KGPG': '체험적 목표형 학습자',
-        'VGFG': '시각적 유연형 학습자'
-    };
-    const allTips = {
-        'VSPG': ['📊 도표와 그래프 활용', '📝 색깔 펜으로 표시', '🎯 구체적 목표 설정'],
-        'ASFG': ['🎧 강의 들으며 공부', '👥 스터디 그룹 활용', '🗣️ 말로 설명해보기'],
-        'KGPG': ['✍️ 직접 문제 풀기', '🏆 단기 목표 달성', '📋 체크리스트 활용'],
-        'VGFG': ['📱 다양한 자료 활용', '🎨 마인드맵 정리', '🔀 과목 번갈아 공부']
+        'VSPG': '시각적 계획형 학습자', 'VSFG': '시각적 유연형 학습자',
+        'VGPG': '시각적 협력형 학습자', 'VGFG': '시각적 자유형 학습자',
+        'ASPG': '청각적 계획형 학습자', 'ASFG': '청각적 유연형 학습자',
+        'AGPG': '청각적 협력형 학습자', 'AGFG': '청각적 자유형 학습자',
+        'KSPG': '체험적 계획형 학습자', 'KSFG': '체험적 유연형 학습자',
+        'KGPG': '체험적 협력형 학습자', 'KGFG': '체험적 자유형 학습자'
     };
     
-    styleData = { code, name: typeNames[code], tips: allTips[code] };
+    const allTips = {
+        'V': ['📊 도표와 그래프 활용', '📝 색깔 펜으로 정리', '🎬 영상 강의 활용'],
+        'A': ['🎧 강의 들으며 공부', '🗣️ 소리 내어 읽기', '👥 스터디 토론'],
+        'K': ['✍️ 직접 문제 풀기', '📋 손으로 필기', '🔬 실습/실험 참여'],
+        'S': ['🤫 조용한 환경 확보', '⏰ 혼자만의 시간 확보'],
+        'G': ['👥 스터디 그룹 활용', '🙋 적극적 질문'],
+        'P': ['📅 세부 계획 수립', '✅ 체크리스트 활용'],
+        'F': ['🔀 유연한 일정 관리', '🎯 핵심 위주 학습']
+    };
+    
+    const tips = [...allTips[learning], ...allTips[social], ...allTips[planning]].slice(0, 4);
+    
+    styleData = { code, name: typeNames[code] || code + ' 학습자', tips };
     localStorage.setItem(`style_${user.name}`, JSON.stringify(styleData));
+    api({ action: 'saveStyle', floor: user.floor, name: user.name, ...styleData, date: fmt(new Date()) });
+    
     displayStyleResult();
     toast('성향 진단 완료!', 'success');
 }
@@ -1473,6 +1571,31 @@ function loadAchievement() {
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(setupCareListeners, 500);
 });
+    /* 학습성향 진단 버튼 */
+.style-answer-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #f8f8f8;
+    border: 2px solid #e5e5e5;
+    border-radius: 12px;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.style-answer-btn:hover {
+    background: #f0f0ff;
+    border-color: #8b5cf6;
+}
+.style-answer-btn:active {
+    background: #e8e8ff;
+}
+[data-theme="dark"] .style-answer-btn {
+    background: #3f3f46;
+    border-color: #52525b;
+}
     </style>
 </head>
 <body data-theme="ocean">
