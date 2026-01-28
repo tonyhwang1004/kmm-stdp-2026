@@ -126,7 +126,7 @@
         .header {
             background: var(--bg-gradient);
             color: var(--header-text, white);
-            padding: 12px 15px;
+            padding: 8px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -147,7 +147,7 @@
 
         .week-bar {
             background: white;
-            padding: 10px 15px;
+            padding: 6px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -177,9 +177,10 @@
         .plan-table th {
             background: var(--primary);
             color: white;
-            padding: 12px 6px;
+            padding: 10px 6px;
             font-size: 0.8rem;
             font-weight: 600;
+            position: relative;
         }
         .plan-table th.subject-col { width: 55px; }
         .plan-table th.add-col { width: 42px; }
@@ -197,7 +198,34 @@
             font-size: 0.9rem;
             color: var(--primary);
             vertical-align: middle !important;
+            position: relative;
         }
+        .week-selector {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    padding: 5px;
+    z-index: 100;
+    flex-direction: row;
+    gap: 3px;
+}
+.subject-cell:hover .week-selector { display: flex; }
+.week-selector button {
+    width: 28px; height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: #f0f0f0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+.week-selector button:hover { background: var(--accent); color: white; }
+.week-selector button.active { background: var(--primary); color: white; }
         .add-cell {
             background: #f8f8f8;
             text-align: center;
@@ -577,7 +605,7 @@
             justify-content: center;
             align-items: center;
             gap: 20px;
-            padding: 10px 15px;
+            padding: 6px 15px;
             background: linear-gradient(135deg, #fef3c7, #fde68a);
             border-bottom: 1px solid #fcd34d;
         }
@@ -1834,7 +1862,17 @@
                     sBooks.forEach((book, idx) => {
                         bHtml += '<tr>';
                         if (idx === 0) {
-                            bHtml += `<td class="subject-cell" rowspan="${sBooks.length}">${subject}</td>`;
+                            const currentWeekNum = Math.ceil(weekStart.getDate() / 7);
+bHtml += `<td class="subject-cell" rowspan="${sBooks.length}" onwheel="handleWeekWheel(event)">
+    ${subject}
+    <div class="week-selector">
+        <button onclick="goToWeek(1)" class="${currentWeekNum===1?'active':''}">1주</button>
+        <button onclick="goToWeek(2)" class="${currentWeekNum===2?'active':''}">2주</button>
+        <button onclick="goToWeek(3)" class="${currentWeekNum===3?'active':''}">3주</button>
+        <button onclick="goToWeek(4)" class="${currentWeekNum===4?'active':''}">4주</button>
+        <button onclick="goToWeek(5)" class="${currentWeekNum===5?'active':''}">5주</button>
+    </div>
+</td>`;
                             bHtml += `<td class="add-cell" rowspan="${sBooks.length}"><button class="add-btn" onclick="openBookModal('${subject}')">+</button></td>`;
                         }
                         
@@ -3071,6 +3109,29 @@ function resetRoadmap() {
     document.getElementById('roadmapSetup').style.display = 'none';
     document.getElementById('roadmapResult').style.display = 'none';
 } 
+        function handleWeekWheel(e) {
+    e.preventDefault();
+    if (e.deltaY > 0) {
+        changeWeek(1);
+    } else {
+        changeWeek(-1);
+    }
+}
+
+function goToWeek(weekNum) {
+    const currentMonth = weekStart.getMonth();
+    const currentYear = weekStart.getFullYear();
+    
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const firstMonday = new Date(firstDay);
+    const dayOfWeek = firstDay.getDay();
+    firstMonday.setDate(firstDay.getDate() + (dayOfWeek === 0 ? 1 : (dayOfWeek === 1 ? 0 : 8 - dayOfWeek)));
+    
+    weekStart = new Date(firstMonday);
+    weekStart.setDate(firstMonday.getDate() + (weekNum - 1) * 7);
+    
+    loadPlans().then(() => { renderWeek(); renderTable(); });
+}
     </script>
 </body>
 </html>
