@@ -200,32 +200,32 @@
             vertical-align: middle !important;
             position: relative;
         }
-        .week-selector {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    padding: 5px;
-    z-index: 100;
-    flex-direction: row;
-    gap: 3px;
+        .week-arrows {
+    display: inline-flex;
+    gap: 2px;
+    margin-left: 4px;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
-.subject-cell:hover .week-selector { display: flex; }
-.week-selector button {
-    width: 28px; height: 28px;
+.subject-cell:hover .week-arrows {
+    opacity: 1;
+}
+.week-arrow-btn {
+    width: 20px;
+    height: 20px;
     border: none;
-    border-radius: 6px;
-    background: #f0f0f0;
-    font-size: 0.7rem;
-    font-weight: 600;
+    border-radius: 4px;
+    background: var(--primary);
+    color: white;
+    font-size: 0.6rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.week-selector button:hover { background: var(--accent); color: white; }
-.week-selector button.active { background: var(--primary); color: white; }
+.week-arrow-btn:hover {
+    background: var(--accent);
+}
         .add-cell {
             background: #f8f8f8;
             text-align: center;
@@ -1900,13 +1900,10 @@ transition: opacity 0.3s ease;
                             const currentWeekNum = Math.ceil(weekStart.getDate() / 7);
 bHtml += `<td class="subject-cell" rowspan="${sBooks.length}" onwheel="handleWeekWheel(event)">
     ${subject}
-    <div class="week-selector">
-        <button onclick="goToWeek(1)" class="${currentWeekNum===1?'active':''}">1주</button>
-        <button onclick="goToWeek(2)" class="${currentWeekNum===2?'active':''}">2주</button>
-        <button onclick="goToWeek(3)" class="${currentWeekNum===3?'active':''}">3주</button>
-        <button onclick="goToWeek(4)" class="${currentWeekNum===4?'active':''}">4주</button>
-        <button onclick="goToWeek(5)" class="${currentWeekNum===5?'active':''}">5주</button>
-    </div>
+    <span class="week-arrows">
+        <button class="week-arrow-btn" onclick="changeWeek(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="week-arrow-btn" onclick="changeWeek(1)"><i class="fas fa-chevron-right"></i></button>
+    </span>
 </td>`;
                             bHtml += `<td class="add-cell" rowspan="${sBooks.length}"><button class="add-btn" onclick="openBookModal('${subject}')">+</button></td>`;
                         }
