@@ -1902,6 +1902,7 @@ bHtml += `<td class="subject-cell" rowspan="${sBooks.length}" onwheel="handleWee
     ${subject}
     <span class="week-arrows">
         <button class="week-arrow-btn" onclick="changeWeek(-1)"><i class="fas fa-chevron-left"></i></button>
+        <span style="font-size:0.7rem;font-weight:600;color:var(--primary);min-width:24px;text-align:center;">${Math.ceil(weekStart.getDate()/7)}주</span>
         <button class="week-arrow-btn" onclick="changeWeek(1)"><i class="fas fa-chevron-right"></i></button>
     </span>
 </td>`;
