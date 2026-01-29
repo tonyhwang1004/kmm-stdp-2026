@@ -1313,6 +1313,12 @@ transition: opacity 0.3s ease;
                 <span class="streak-label">누적</span>
             </div>
         </div>
+            <div class="streak-divider"></div>
+<div class="streak-item">
+    <span class="streak-icon">📚</span>
+    <span class="streak-value" id="todayStudyTime">0h</span>
+    <span class="streak-label">오늘</span>
+</div>
             </div>
 
         <div class="table-wrapper">
@@ -2462,6 +2468,9 @@ bHtml += `<td class="subject-cell" rowspan="${sBooks.length}" onwheel="handleWee
                     document.getElementById('streakDays').textContent = res.streak || 0;
                     const totalHours = ((res.totalTime || 0) / 60).toFixed(1);
                     document.getElementById('totalStudyTime').textContent = totalHours + 'h';
+                    // 오늘 공부 시간
+const todayTime = ((res.todayTime || 0) / 60).toFixed(1);
+document.getElementById('todayStudyTime').textContent = todayTime + 'h';
                 } else {
                     // API 없으면 현재 데이터로 계산
                     calculateStreakFromPlans();
@@ -2479,6 +2488,11 @@ bHtml += `<td class="subject-cell" rowspan="${sBooks.length}" onwheel="handleWee
             // 누적 시간
             const totalMin = completed.reduce((sum, p) => sum + (p.actualTime || 0), 0);
             document.getElementById('totalStudyTime').textContent = (totalMin / 60).toFixed(1) + 'h';
+            // 오늘 공부 시간
+const todayStr = fmt(new Date());
+const todayCompleted = completed.filter(p => p.date === todayStr);
+const todayMin = todayCompleted.reduce((sum, p) => sum + (p.actualTime || 0), 0);
+document.getElementById('todayStudyTime').textContent = (todayMin / 60).toFixed(1) + 'h';
             
             // 연속 학습일 (간단 버전: 오늘부터 거꾸로)
             const today = new Date();
